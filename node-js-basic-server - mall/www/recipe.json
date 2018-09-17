@@ -4,7 +4,18 @@
         "ingredienser" : [
             {
                 "name": "ägg",
-                "antal" : 2
+                "antal" : 2,
+                "enhet" : "st"
+            },
+            {
+                "name": "mjölk",
+                "antal" : 8,
+                "enhet" : "dl"
+            },
+            {
+                "name": "mjöl",
+                "antal" : 4,
+                "enhet" : "dl"
             }
         ]
     },
@@ -13,7 +24,8 @@
         "ingredienser" : [
             {
                 "name": "ägg",
-                "antal" : 3
+                "antal" : 4,
+                "enhet" : "st"
             }
         ]
     },{
@@ -21,7 +33,8 @@
         "ingredienser" : [
             {
                 "name": "ost",
-                "antal" : 3
+                "antal" : 3,
+                "enhet" : "st"
             }
         ]
     }

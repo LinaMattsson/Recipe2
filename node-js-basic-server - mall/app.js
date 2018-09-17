@@ -13,7 +13,7 @@ app.get(
       // of params I have defined with :paramName in my route/url
       let start = req.params.startOfName.toLowerCase();
       // require at least two characters
-      if(start.length < 2){
+      if(start.length < 1){
         res.json({error: 'Please provide at least two characters...'});
         return;
       }
