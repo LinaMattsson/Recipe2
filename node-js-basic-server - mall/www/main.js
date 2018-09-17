@@ -1,4 +1,4 @@
-$.getJSON('/recipe.json', function(recipes){
+$.getJSON('/autocomplete-ingredient-name/bac', function(recipes){
     console.log(recipes);
 
 })
