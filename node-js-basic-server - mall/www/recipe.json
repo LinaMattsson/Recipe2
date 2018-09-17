@@ -16,5 +16,13 @@
                 "antal" : 3
             }
         ]
+    },{
+        "name" : "ostkaka",
+        "ingredienser" : [
+            {
+                "name": "ost",
+                "antal" : 3
+            }
+        ]
     }
 ]
