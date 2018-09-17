@@ -21,23 +21,21 @@ $('#search-recipe').on('click', async function(){
             result = r;
         }    
     }
-
     if(!match){
-     console.log("Inget recept med det namnet hittades")
+     $('.result').text("Inget recept med det namnet hittades");
     }
     if(result){
     $('.result').text(result.name);
+    $('.result').append('<br>');
+
     let ingredientlist;
-    // for(let i of result.ingredienser){
-    //     ingredientlist += in;
-    // }
-    
-    $('.result').append(result.name);
+    for(let i of result.ingredienser){
+        $('.result').append(i.name + " ");
+        $('.result').append(i.antal);
+        $('.result').append('<br>');
 
-
+    }
     }
     
 })
-
-
 start();
