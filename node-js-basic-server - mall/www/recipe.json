@@ -1,0 +1,20 @@
+[
+    {
+        "name" : "pannkaka",
+        "ingredienser" : [
+            {
+                "name": "ägg",
+                "antal" : 2
+            }
+        ]
+    },
+    {
+        "name" : "kaka",
+        "ingredienser" : [
+            {
+                "name": "ägg",
+                "antal" : 3
+            }
+        ]
+    }
+]
