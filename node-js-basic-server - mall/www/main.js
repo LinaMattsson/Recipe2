@@ -31,14 +31,44 @@ $('#choose-ingredient').on('click','a', function(){
 })
 
 //This two simular functions are posting the title and todo of the recipe to a preview
+let deleteName = 0; 
 $('#recipe-name-button').on('click', function(){
     let input = $('#recipe-name').val();
-    $('#rubrik').append(input);
+    console.log(input);
+    $('#rubrik ul').append('<li>'+input + '</li>');
+    if(deleteName == 0){
+        console.log('här')
+        $('#rubrik').append('  <input type="button" value="Töm"></input>');
+    }
+    $('#recipe-name').val("")
+    deleteName ++;
 })
+let deleteToDo = 0;
 $('#toDo-button').on('click', function(){
     let input = $('#toDo').val();
-    $('#toDo-pre').append(input);
+    $('#toDo-pre ul').append('<li>'+input+'</li>');
+    if(deleteToDo == 0){
+        $('#toDo-pre').append('  <input type="button" value="Töm"></input>');
+    }
+    $('#toDo').val("");
+    deleteToDo ++;
 })
+
+//Method to delete title och todo in preview recipe
+$('.pre-recipe').on('click','input',function(){
+    console.log('try to empty')
+let ulList = $(this).closest('div').attr('id');
+$(this).closest('div').empty();
+if(ulList == 'rubrik'){
+    $('#rubrik').append('<ul>'+'</ul>');
+
+    deleteName = 0;
+}else if (ulList == 'toDo-pre'){
+    $('#toDo-pre').append('<ul>'+'</ul>');
+    deleteToDo = 0;
+}
+console.log('deleted'+ulList);
+});
 
 //This function is not permanent
 async function start() {
