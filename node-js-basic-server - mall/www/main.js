@@ -3,17 +3,30 @@
 // })
 
 // let recipes = [];
-let searchCount = 0;
+let keyUpCount = 0;
 $('#ingredient').keyup(function(){
-    searchCount ++;
-    if(searchCount > 1){
-        $.getJSON('/autocomplete-ingredient-name/'+$('#ingredient').val(), function(recipes){
+    keyUpCount ++;
+    if(keyUpCount > 1){
+        $.getJSON('/autocomplete-ingredient-name/'+$('#ingredient').val(), function(sIngredients){
             //Här ska det komma en drop down från ingrediens input
- console.log(recipes);
+            // let i = 0;
+            $('#choose-ingredient').empty();
+            for(let ing of sIngredients){
+            //    if(i == 0){ 
+            
+            $('#choose-ingredient').append('<li>'+ing+'</li>');
+            // $('#choose-ingredient').append('</br>');
+
+        //     }else{            
+        //         $('#choose-ingredient').append(ing +'</br>');
+        // } i ++;
+        }
+ console.log(sIngredients);
     })}
     else{ console.log('För kort att söka på')}
 });
 
+//Är bara här just nu, ska inte finnas sen
 async function start() {
     recipes = await $.getJSON('/recipe.json').catch(console.err);
     console.log(recipes);

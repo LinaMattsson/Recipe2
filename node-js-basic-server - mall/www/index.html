@@ -9,15 +9,25 @@
     <body>
             <nav><ul><li><a href="index.html">Lägg till recept</a></li><li><a href="sok.html"> Sök på recept</a></li></ul></nav>
             <h1>Lägg till recept!</h1>
-       <form action="POST">
+       <form>
            Receptnamn: <br>
            <input type="text" name="recipe-name"><input type="button" value ="skicka"> <br>
            Ingredienser: <br>
            <input type="text" name="ingredients" id= "ingredient"><input type="button" value = "skicka"><br>
            Utförande: <br>
            <textarea type="text" name="toDo"></textarea><input type="button" value = "skicka">
-          <input type="submit" text="submit" value= "slutför">
        </form> 
+       <div> <h1> Förslag på ingredienser</h1>
+        <p id="choose-ingredient"></p>
+    </div>
+       <div>
+           <h1>Recept granskning</h1>
+           <p id ="rubrik"><h6>Receptnamn:</h6></p>
+           <p id ="ingredienser"><h6>Ingredienser</h6></p>
+           <p id = "todo"><h6>Utförande</h6></p>
+       </div>
+       <input type="submit" text="submit" value= "slutför">
+
     </body>
     <footer></footer>
 </html>

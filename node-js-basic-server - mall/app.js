@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 // Tell the web server to serve files
 // from the www folder
+const fs = require('fs');
 const ingredients = require("./livsmedelsdata.json");
 
 app.get(
