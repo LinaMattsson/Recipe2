@@ -2,29 +2,31 @@
     // console.log(recipes);
 // })
 
-// let recipes = [];
-let keyUpCount = 0;
+// This funktion sorts out the ingredients that starts with the letters provided in the ingredients-search input
 $('#ingredient').keyup(function(){
-    keyUpCount ++;
-    if(keyUpCount > 1){
+    let value = $(this).val();
+    if(value.length>1){
         $.getJSON('/autocomplete-ingredient-name/'+$('#ingredient').val(), function(sIngredients){
-            //Här ska det komma en drop down från ingrediens input
-            // let i = 0;
+            //Instead of a list maybe a drop down would be nice
+            if(sIngredients){
             $('#choose-ingredient').empty();
             for(let ing of sIngredients){
-            //    if(i == 0){ 
-            
             $('#choose-ingredient').append('<li><a href="#">'+ing+'</a></li>');
-            // $('#choose-ingredient').append('</br>');
+        }}})
+}else
+{ console.log('För kort att söka på')
+$('#choose-ingredient').empty();
+}});
 
-        //     }else{            
-        //         $('#choose-ingredient').append(ing +'</br>');
-        // } i ++;
-        }
- console.log(sIngredients);
-    })}
-    else{ console.log('För kort att söka på')}
-});
+//This function makes it possible to choose witch ingredient from the list provided in the ingredient search
+$('#choose-ingredient').on('click','a', function(){
+    let ing = this.text;
+ console.log(ing);
+ $('#choose-ingredient').empty();
+ $('#choose-ingredient').append(ing);
+ $('#choose-ingredient').append('</br>Mängd: <input> Enhet: <input> <input type="button" value = "skicka">');
+
+})
 
 //Är bara här just nu, ska inte finnas sen
 async function start() {
