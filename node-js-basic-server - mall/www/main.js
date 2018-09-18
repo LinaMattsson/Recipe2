@@ -30,7 +30,15 @@ $('#choose-ingredient').on('click','a', function(){
  $('#choose-ingredient').append('</br>Mängd: <input> Enhet: <input> <input type="button" value = "skicka">');
 })
 
-
+//This two simular functions are posting the title and todo of the recipe to a preview
+$('#recipe-name-button').on('click', function(){
+    let input = $('#recipe-name').val();
+    $('#rubrik').append(input);
+})
+$('#toDo-button').on('click', function(){
+    let input = $('#toDo').val();
+    $('#toDo-pre').append(input);
+})
 
 //This function is not permanent
 async function start() {
