@@ -14,7 +14,7 @@ $('#ingredient').keyup(function(){
             for(let ing of sIngredients){
             //    if(i == 0){ 
             
-            $('#choose-ingredient').append('<li>'+ing+'</li>');
+            $('#choose-ingredient').append('<li><a href="#">'+ing+'</a></li>');
             // $('#choose-ingredient').append('</br>');
 
         //     }else{            
