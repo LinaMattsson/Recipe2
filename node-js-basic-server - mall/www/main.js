@@ -10,25 +10,29 @@ $('#ingredient').keyup(function(){
             //Instead of a list maybe a drop down would be nice
             if(sIngredients){
             $('#choose-ingredient').empty();
+            $('.add-ingredient h1').text('Förslag på ingredienser');
             for(let ing of sIngredients){
             $('#choose-ingredient').append('<li><a href="#">'+ing+'</a></li>');
         }}})
 }else
 { console.log('För kort att söka på')
 $('#choose-ingredient').empty();
+$('.add-ingredient h1').empty();
 }});
 
-//This function makes it possible to choose witch ingredient from the list provided in the ingredient search
+//This function makes it possible to choose witch ingredient from the list provided in the ingredient search and fill in quantity but not add it
 $('#choose-ingredient').on('click','a', function(){
     let ing = this.text;
  console.log(ing);
+ $('.add-ingredient h1').text('Ange mängd');
  $('#choose-ingredient').empty();
  $('#choose-ingredient').append(ing);
  $('#choose-ingredient').append('</br>Mängd: <input> Enhet: <input> <input type="button" value = "skicka">');
-
 })
 
-//Är bara här just nu, ska inte finnas sen
+
+
+//This function is not permanent
 async function start() {
     recipes = await $.getJSON('/recipe.json').catch(console.err);
     console.log(recipes);
