@@ -22,6 +22,7 @@ $('.add-ingredient h1').empty();
 
 //This function makes it possible to choose witch ingredient from the list provided in the ingredient search and fill in quantity but not add it
 let recipeIngredients = [];
+let deleteIngredient = 0;
 $('#choose-ingredient').on('click','a', function(){
     let ing = this.text;
  console.log(ing);
@@ -29,7 +30,7 @@ $('#choose-ingredient').on('click','a', function(){
  $('#choose-ingredient').empty();
  $('#choose-ingredient').append(ing);
  $('#choose-ingredient').append('</br>Mängd: <input id="m"/> Enhet: <input id="e"/> En enhet i gram <input id="g"/> <input id="addIngredient" type="button" value = "skicka"/>');
-
+ 
 $('#addIngredient').on('click', function(){
     console.log('tryckte på lägg till ingridient')
     let m = $('#m').val();
@@ -43,13 +44,21 @@ $('#addIngredient').on('click', function(){
         unit: e,
         inGrams: g 
         }
+        
+    $('#ingredienser ul').append('<li>'+ing+" "+m+" "+e +'</li>');
+    if(deleteIngredient == 0){
+        console.log('här')
+        $('#ingredienser').append('  <input type="button" value="Töm"></input>');
+     deleteIngredient ++;
+}
     recipeIngredients.push(ingredientToAppend);
     console.log(recipeIngredients)
 }
     else{
         $('#choose-ingredient').append("Alla rutor måste fyllas i");
     }
-})})
+})
+})
 //OBSOBS                                    OBSOBS                                  OBS OBS OBS OBS
 
 
@@ -90,6 +99,10 @@ if(ulList == 'rubrik'){
 }else if (ulList == 'toDo-pre'){
     $('#toDo-pre').append('<ul>'+'</ul>');
     deleteToDo = 0;
+}else if(ulList == 'ingredienser'){
+    recipeIngredients = [];
+    $('#ingredienser').append('<ul>'+'</ul>');
+    deleteIngredient = 0;
 }
 console.log('deleted'+ulList);
 });
@@ -128,7 +141,6 @@ $('#search-recipe').on('click', async function(){
     else{
      $('.result').text("Inget recept med det namnet hittades");
     }
-})
+});
 
-//addRecipe();
-start();
+//addRecipe()
