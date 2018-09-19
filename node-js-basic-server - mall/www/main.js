@@ -21,14 +21,38 @@ $('.add-ingredient h1').empty();
 }});
 
 //This function makes it possible to choose witch ingredient from the list provided in the ingredient search and fill in quantity but not add it
+let recipeIngredients = [];
 $('#choose-ingredient').on('click','a', function(){
     let ing = this.text;
  console.log(ing);
  $('.add-ingredient h1').text('Ange mängd');
  $('#choose-ingredient').empty();
  $('#choose-ingredient').append(ing);
- $('#choose-ingredient').append('</br>Mängd: <input> Enhet: <input> <input type="button" value = "skicka">');
-})
+ $('#choose-ingredient').append('</br>Mängd: <input id="m"/> Enhet: <input id="e"/> En enhet i gram <input id="g"/> <input id="addIngredient" type="button" value = "skicka"/>');
+
+$('#addIngredient').on('click', function(){
+    console.log('tryckte på lägg till ingridient')
+    let m = $('#m').val();
+    let e = $('#e').val();
+    let g = $('#g').val();
+
+    if (m && e && g){
+    let ingredientToAppend = 
+        {name: ing,
+        cuantity: m,
+        unit: e,
+        inGrams: g 
+        }
+    recipeIngredients.push(ingredientToAppend);
+    console.log(recipeIngredients)
+}
+    else{
+        $('#choose-ingredient').append("Alla rutor måste fyllas i");
+    }
+})})
+//OBSOBS                                    OBSOBS                                  OBS OBS OBS OBS
+
+
 
 //This two simular functions are posting the title and todo of the recipe to a preview
 let deleteName = 0; 
