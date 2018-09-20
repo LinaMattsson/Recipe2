@@ -37,6 +37,9 @@ $('#addIngredient').on('click', function(){
     let e = $('#e').val();
     let g = $('#g').val();
 
+    if(isNaN(m) || isNaN(g) || !isNaN(e)){ //Posible to use regex here :)
+        $('#choose-ingredient').append('"Mängd" och "i gram" får bara vara siffror');
+    }else {
     if (m && e && g){
     let ingredientToAppend = 
         {name: ing,
@@ -56,7 +59,7 @@ $('#addIngredient').on('click', function(){
 }
     else{
         $('#choose-ingredient').append("Alla rutor måste fyllas i");
-    }
+    }}
 })
 })
 //OBSOBS                                    OBSOBS                                  OBS OBS OBS OBS
