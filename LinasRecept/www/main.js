@@ -70,8 +70,11 @@ $('#addIngredient').on('click', function(){
 
 //This two simular functions are posting the title and todo of the recipe to a preview
 let deleteName = 0; 
+let recipeName;
 $('#recipe-name-button').on('click', function(){
     let input = $('#recipe-name').val();
+    recipeName = input;
+    $('#rubrik ul').empty();
     console.log(input);
     $('#rubrik ul').append('<li>'+input + '</li>');
     if(deleteName == 0){
@@ -81,9 +84,12 @@ $('#recipe-name-button').on('click', function(){
     $('#recipe-name').val("")
     deleteName ++;
 })
+
 let deleteToDo = 0;
+let todoList = [];
 $('#toDo-button').on('click', function(){
     let input = $('#toDo').val();
+    todoList.push(input);
     $('#toDo-pre ul').append('<li>'+input+'</li>');
     if(deleteToDo == 0){
         $('#toDo-pre').append('  <input type="button" value="Töm"></input>');
@@ -98,9 +104,11 @@ $('.pre-recipe').on('click','input',function(){
     let ulList = $(this).closest('div').attr('id');
     $(this).closest('div').empty();
     if(ulList == 'rubrik'){
+        recipeName = "";
         $('#rubrik').append('<ul>'+'</ul>');
         deleteName = 0;
     }else if (ulList == 'toDo-pre'){
+        todoList = [];
         $('#toDo-pre').append('<ul>'+'</ul>');
         deleteToDo = 0;
     }else if(ulList == 'ingredienser'){
@@ -118,6 +126,14 @@ async function start() {
     // let recipes2 = await $.getJSON('/recipe2.json');
 }
 
+//Metod för att få fram näringsvärde till receptet och lägga till det i recipe.json
+
+
+
+
+//ALLT NEDAN HÖR TILL SOK.HTML!!!
+
+//Metod för att söka recept
 $('#search-recipe').on('click', async function(){
     let searchinput = $('#input-search-recipe').val().toLowerCase();
     recipes = await $.getJSON('/recipe.json').catch(console.err);
@@ -148,4 +164,3 @@ $('#search-recipe').on('click', async function(){
 });
 
 //addRecipe()
-hallå
