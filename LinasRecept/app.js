@@ -28,6 +28,30 @@ app.get(
       res.json(result);
     }
   );
+  app.get(
+    '/ingredient-name/:name',
+    (req, res) => {
+      console.log('i backend');
+      name1 = req.name;
+      //console.log(name1);
+      //console.log(req)
+
+      // req.params will include properties with the names
+      // of params I have defined with :paramName in my route/url
+      let fullName = req.params.name.toLowerCase();
+      
+      console.log(fullName)
+      // filter ingredients so that only those with a Namn
+      // matching start are left, then map from obj to obj.Namn
+      let result = ingredients.filter(
+        ingredient => ingredient.Namn.toLowerCase()==fullName
+      ).map(
+        ingredient => ingredient
+      );
+      console.log(result +"jippi");
+      res.json(result);
+    }
+  );
 
 app.use(express.static('www'));
 

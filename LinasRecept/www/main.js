@@ -70,7 +70,7 @@ $('#addIngredient').on('click', function(){
 
 //This two simular functions are posting the title and todo of the recipe to a preview
 let deleteName = 0; 
-let recipeName;
+let recipeName = "";
 $('#recipe-name-button').on('click', function(){
     let input = $('#recipe-name').val();
     recipeName = input;
@@ -127,6 +127,33 @@ async function start() {
 }
 
 //Metod för att få fram näringsvärde till receptet och lägga till det i recipe.json
+$('#submitRecipe').on('click', function(){
+    if(recipeIngredients.length>0 && todoList.length>0 && recipeName !=""){
+        console.log('receptet ska sparas strax')
+        recipeIngredients.forEach(i => {
+            console.log(i.name)
+            let tempstring = encodeURI(i.name)
+            let nutrition=[["Energi i kcal","Protein","Kolhydrater","varav Sockerarter",
+                "Mättat fett" ,"OmättatFett" ,"Fleromättat fett", "Salt"],
+                [22,26,25,52,0,1,2,53],
+                [0,0,0,0,0,0,0,0],
+                ["kcal","g","g","g","g","g","g","g"]];
+        
+            $.getJSON('/ingredient-name/'+tempstring, function(nutritionListPerIng){ // add url
+                console.log(nutritionListPerIng)
+                for(let a=0; a<8; a++){
+                let sa = nutritionListPerIng[0].Naringsvarden.Naringsvarde[nutrition[1][a]].Varde
+            console.log(sa)    
+            }
+                console.log(nutrition[2]);
+            })
+        })
+    }
+
+    else{
+        console.log("alla fält måste vara i fyllda")
+    }
+})
 
 
 
