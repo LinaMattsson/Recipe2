@@ -35,7 +35,6 @@ app.get(
       name1 = req.name;
       //console.log(name1);
       //console.log(req)
-
       // req.params will include properties with the names
       // of params I have defined with :paramName in my route/url
       let fullName = req.params.name.toLowerCase();

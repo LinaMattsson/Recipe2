@@ -130,22 +130,24 @@ async function start() {
 $('#submitRecipe').on('click', function(){
     if(recipeIngredients.length>0 && todoList.length>0 && recipeName !=""){
         console.log('receptet ska sparas strax')
-        recipeIngredients.forEach(i => {
-            console.log(i.name)
-            let tempstring = encodeURI(i.name)
-            let nutrition=[["Energi i kcal","Protein","Kolhydrater","varav Sockerarter",
+        let nutrition=[["Energi i kcal","Protein","Kolhydrater","varav Sockerarter",
                 "Mättat fett" ,"OmättatFett" ,"Fleromättat fett", "Salt"],
-                [22,26,25,52,0,1,2,53],
+                ["Ener","Prot","Kolh","Mono/disak","Mfet","Mone","Pole","NaCl"],
                 [0,0,0,0,0,0,0,0],
                 ["kcal","g","g","g","g","g","g","g"]];
-        
-            $.getJSON('/ingredient-name/'+tempstring, function(nutritionListPerIng){ // add url
+        recipeIngredients.forEach(i => {
+            console.log(i.name)
+            let tempName = encodeURI(i.name)
+            $.getJSON('/ingredient-name/'+tempName, function(nutritionListPerIng){ // add url
                 console.log(nutritionListPerIng)
                 for(let a=0; a<8; a++){
-                let sa = nutritionListPerIng[0].Naringsvarden.Naringsvarde[nutrition[1][a]].Varde
-            console.log(sa)    
+                    let shortPath=nutritionListPerIng[0].Naringsvarden.Naringsvarde;
+                    let index = shortPath.map(obj => obj.Forkortning).indexOf(nutrition[1][a]);
+                nutrition[2][a] += shortPath[index].Varde;
+                console.log(index)
+                console.log(nutrition[2][a]);   
             }
-                console.log(nutrition[2]);
+                
             })
         })
     }
