@@ -145,15 +145,25 @@ $('#submitRecipe').on('click', function(){
                     let index = shortPath.map(obj => obj.Forkortning).indexOf(nutrition[1][a]);
                     let num = shortPath[index].Varde;
                     num = num.replace(",",".");
-                nutrition[2][a]= parseFloat(nutrition[2][a]) + parseFloat(num); 
+                    i.cuantity=i.cuantity.replace(",","."); //This could be the reason why the decimals don't add upp correct
+                    i.cuantity=i.inGrams.replace(",",".");
+                    let percent = parseFloat(i.cuantity)*parseFloat(i.inGrams)/100;
+                nutrition[2][a]= parseFloat(nutrition[2][a]) + (parseFloat(num)*percent); 
                 //let t= parseFloat(nutrition[2][a]) + parseFloat(shortPath[index].Varde);
                 console.log("index "+index)
-                console.log("värde "+nutrition[2][a]); 
-                 
+                console.log("värde "+nutrition[2][a]);    
             }
-                
             })
+            //Gör receptet till ett objekt som kan skickas till recipe.json
+            let recipe ={
+                name: recipeName,
+                ingredients: recipeIngredients,
+                todo: todoList,
+                nutrition: nutrition
+            }
+            $.ajax(recipe.json)
         })
+
     }
 
     else{
