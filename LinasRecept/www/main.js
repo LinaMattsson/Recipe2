@@ -132,8 +132,8 @@ $('#submitRecipe').on('click', function(){
         console.log('receptet ska sparas strax')
         let nutrition=[["Energi i kcal","Protein","Kolhydrater","varav Sockerarter",
                 "Mättat fett" ,"OmättatFett" ,"Fleromättat fett", "Salt"],
-                ["Ener","Prot","Kolh","Mono/disak","Mfet","Mone","Pole","NaCl"],
-                [0,0,0,0,0,0,0,0],
+                ["Ener","Prot","Kolh","Mono/disack","Mfet","Mone","Pole","NaCl"],
+                ["0","0","0","0","0","0","0","0"],
                 ["kcal","g","g","g","g","g","g","g"]];
         recipeIngredients.forEach(i => {
             console.log(i.name)
@@ -143,9 +143,13 @@ $('#submitRecipe').on('click', function(){
                 for(let a=0; a<8; a++){
                     let shortPath=nutritionListPerIng[0].Naringsvarden.Naringsvarde;
                     let index = shortPath.map(obj => obj.Forkortning).indexOf(nutrition[1][a]);
-                nutrition[2][a] += shortPath[index].Varde;
-                console.log(index)
-                console.log(nutrition[2][a]);   
+                    let num = shortPath[index].Varde;
+                    num = num.replace(",",".");
+                nutrition[2][a]= parseFloat(nutrition[2][a]) + parseFloat(num); 
+                //let t= parseFloat(nutrition[2][a]) + parseFloat(shortPath[index].Varde);
+                console.log("index "+index)
+                console.log("värde "+nutrition[2][a]); 
+                 
             }
                 
             })
