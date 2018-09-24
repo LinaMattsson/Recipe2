@@ -1,11 +1,17 @@
 // Require the express module
 const express = require('express');
+const bodyParser = require('body-parser');
 // Create a new web server
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 // Tell the web server to serve files
 // from the www folder
 const fs = require('fs');
 const ingredients = require("./livsmedelsdata.json");
+const recipePath = "./recipes.json";
+const recipesJson = require(recipePath);
 
 app.get(
     '/autocomplete-ingredient-name/:startOfName',
@@ -52,11 +58,26 @@ app.get(
     }
   );
 
+
+app.post('/add-recipe', (req, res) => {
+  const recipe = req.body;
+  console.log("rad 60",recipe);
+  recipesJson.push(recipe);
+  fs.writeFile(recipePath, JSON.stringify(recipesJson), function(err){
+    if(err){console.log(err)}
+  });
+  res.json('sparat');
+})
+
+app.get('/recipes.json', (req,res) => {
+ res.json(recipesJson);
+});
+
 app.use(express.static('www'));
 
-app.post('/recipe/add', function(req, res){
-    console.log(req.body)
-})
+// app.post('/recipe/add', function(req, res){
+//     console.log(req.body)
+// })
 
 // Start the web server on port 3000
 app.listen(3000,() => console.log('Listening on port 3000'));

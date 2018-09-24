@@ -1,0 +1,410 @@
+[
+    {
+        "name": "pannakaka",
+        "ingredients": [
+            {
+                "name": "Halloumiost fett 22% ej stekt",
+                "cuantity": "2",
+                "unit": "dl",
+                "inGrams": "100"
+            }
+        ],
+        "todo": [
+            "hl"
+        ],
+        "nutrition": [
+            [
+                "Energi i kcal",
+                "Protein",
+                "Kolhydrater",
+                "varav Sockerarter",
+                "Mättat fett",
+                "OmättatFett",
+                "Fleromättat fett",
+                "Salt"
+            ],
+            [
+                "Ener",
+                "Prot",
+                "Kolh",
+                "Mono/disack",
+                "Mfet",
+                "Mone",
+                "Pole",
+                "NaCl"
+            ],
+            [
+                584,
+                44.54,
+                3.8,
+                1.8,
+                29.82,
+                9.14,
+                1.6,
+                8.4
+            ],
+            [
+                "kcal",
+                "g",
+                "g",
+                "g",
+                "g",
+                "g",
+                "g",
+                "g"
+            ]
+        ]
+    },
+    {
+        "name": "pannakaka",
+        "ingredients": [
+            {
+                "name": "Späck gris",
+                "quantity": "3",
+                "unit": "dl",
+                "inGrams": "100"
+            }
+        ],
+        "todo": [
+            "jaklf"
+        ],
+        "nutrition": [
+            [
+                "Energi i kcal",
+                "Protein",
+                "Kolhydrater",
+                "varav Sockerarter",
+                "Mättat fett",
+                "OmättatFett",
+                "Fleromättat fett",
+                "Salt"
+            ],
+            [
+                "Ener",
+                "Prot",
+                "Kolh",
+                "Mono/disack",
+                "Mfet",
+                "Mone",
+                "Pole",
+                "NaCl"
+            ],
+            [
+                2289,
+                8.399999999999999,
+                0,
+                0,
+                98.39999999999999,
+                115.5,
+                27.089999999999996,
+                0.09
+            ],
+            [
+                "kcal",
+                "g",
+                "g",
+                "g",
+                "g",
+                "g",
+                "g",
+                "g"
+            ]
+        ]
+    },
+    {
+        "name": "pannkaka",
+        "ingredients": [
+            {
+                "name": "Ägg konventionellt rått",
+                "quantity": "3",
+                "unit": "st",
+                "inGrams": "60"
+            }
+        ],
+        "todo": [
+            "hallå"
+        ],
+        "nutrition": [
+            [
+                "Energi i kcal",
+                "Protein",
+                "Kolhydrater",
+                "varav Sockerarter",
+                "Mättat fett",
+                "OmättatFett",
+                "Fleromättat fett",
+                "Salt"
+            ],
+            [
+                "Ener",
+                "Prot",
+                "Kolh",
+                "Mono/disack",
+                "Mfet",
+                "Mone",
+                "Pole",
+                "NaCl"
+            ],
+            [
+                246.6,
+                22.05,
+                0.7200000000000001,
+                0.7200000000000001,
+                4.662,
+                7.146000000000001,
+                2.628,
+                0.648
+            ],
+            [
+                "kcal",
+                "g",
+                "g",
+                "g",
+                "g",
+                "g",
+                "g",
+                "g"
+            ]
+        ]
+    },
+    {
+        "name": "jpsd",
+        "ingredients": [
+            {
+                "name": "Halloumiost fett 22% ej stekt",
+                "quantity": "1",
+                "unit": "Q",
+                "inGrams": "1"
+            }
+        ],
+        "todo": [
+            "gjiewOGH"
+        ],
+        "nutrition": {
+            "Ener": 0,
+            "Prot": 0,
+            "Kolh": 0,
+            "Mono/disack": 0,
+            "Mfet": 0,
+            "Mone": 0,
+            "Pole": 0,
+            "NaCl": 0
+        }
+    },
+    {
+        "name": "pannkaka",
+        "ingredients": [
+            {
+                "name": "Mjölk fett 3%",
+                "quantity": "10",
+                "unit": "dl",
+                "inGrams": "100"
+            }
+        ],
+        "todo": [
+            "uiepauy"
+        ],
+        "nutrition": {
+            "Ener": 0,
+            "Prot": 0,
+            "Kolh": 0,
+            "Mono/disack": 0,
+            "Mfet": 0,
+            "Mone": 0,
+            "Pole": 0,
+            "NaCl": 0
+        }
+    },
+    {
+        "name": "pannakaka12",
+        "ingredients": [
+            {
+                "name": "Mjölk fett 3%",
+                "quantity": "100",
+                "unit": "dl",
+                "inGrams": "100"
+            }
+        ],
+        "todo": [
+            "fdswjgk"
+        ],
+        "nutrition": {
+            "Ener": 0,
+            "Prot": 0,
+            "Kolh": 0,
+            "Mono/disack": 0,
+            "Mfet": 0,
+            "Mone": 0,
+            "Pole": 0,
+            "NaCl": 0
+        }
+    },
+    {
+        "name": "hdsob",
+        "ingredients": [
+            {
+                "name": "Mjölk fett 3%",
+                "quantity": "1",
+                "unit": "q",
+                "inGrams": "1"
+            }
+        ],
+        "todo": [
+            "hgodaie"
+        ],
+        "nutrition": {
+            "Ener": 0,
+            "Prot": 0,
+            "Kolh": 0,
+            "Mono/disack": 0,
+            "Mfet": 0,
+            "Mone": 0,
+            "Pole": 0,
+            "NaCl": 0
+        }
+    },
+    {
+        "name": "linastetsar",
+        "ingredients": [
+            {
+                "name": "Hallon sockrade frysta",
+                "quantity": "1",
+                "unit": "q",
+                "inGrams": "1"
+            }
+        ],
+        "todo": [
+            "efjpew"
+        ],
+        "nutrition": {
+            "Ener": 0,
+            "Prot": 0,
+            "Kolh": 0,
+            "Mono/disack": 0,
+            "Mfet": 0,
+            "Mone": 0,
+            "Pole": 0,
+            "NaCl": 0
+        }
+    },
+    {
+        "name": "fojsdapgdha",
+        "ingredients": [
+            {
+                "name": "Hallon blåbär frysta",
+                "quantity": "1",
+                "unit": "q",
+                "inGrams": "1"
+            }
+        ],
+        "todo": [
+            "dboph"
+        ],
+        "nutrition": {
+            "Ener": 44,
+            "Prot": 0,
+            "Kolh": 6,
+            "Mono/disack": 5,
+            "Mfet": 0,
+            "Mone": 0,
+            "Pole": 0,
+            "NaCl": 0
+        }
+    },
+    {
+        "name": "fojsdapgdha",
+        "ingredients": [
+            {
+                "name": "Hallon blåbär frysta",
+                "quantity": "1",
+                "unit": "q",
+                "inGrams": "1"
+            }
+        ],
+        "todo": [
+            "dboph"
+        ],
+        "nutrition": {
+            "Ener": 44,
+            "Prot": 0,
+            "Kolh": 6,
+            "Mono/disack": 5,
+            "Mfet": 0,
+            "Mone": 0,
+            "Pole": 0,
+            "NaCl": 0
+        }
+    },
+    {
+        "name": "fojsdapgdha",
+        "ingredients": [
+            {
+                "name": "Hallon blåbär frysta",
+                "quantity": "1",
+                "unit": "q",
+                "inGrams": "1"
+            }
+        ],
+        "todo": [
+            "dboph"
+        ],
+        "nutrition": {
+            "Ener": 44,
+            "Prot": 0,
+            "Kolh": 6,
+            "Mono/disack": 5,
+            "Mfet": 0,
+            "Mone": 0,
+            "Pole": 0,
+            "NaCl": 0
+        }
+    },
+    {
+        "name": "tomatsoppa",
+        "ingredients": [
+            {
+                "name": "Tomater hela konserv m lag",
+                "quantity": "2",
+                "unit": "burkar",
+                "inGrams": "500"
+            }
+        ],
+        "todo": [
+            "gdfhsfj"
+        ],
+        "nutrition": {
+            "Ener": 180,
+            "Prot": 0,
+            "Kolh": 20,
+            "Mono/disack": 20,
+            "Mfet": 0,
+            "Mone": 0,
+            "Pole": 0,
+            "NaCl": 0
+        }
+    },
+    {
+        "name": "lina98765",
+        "ingredients": [
+            {
+                "name": "Halloumiost fett 22% ej stekt",
+                "quantity": "200",
+                "unit": "g",
+                "inGrams": "1"
+            }
+        ],
+        "todo": [
+            "testtesttest123456"
+        ],
+        "nutrition": {
+            "Ener": 584,
+            "Prot": 44,
+            "Kolh": 2,
+            "Mono/disack": 0,
+            "Mfet": 28,
+            "Mone": 8,
+            "Pole": 0,
+            "NaCl": 8
+        }
+    }
+]
