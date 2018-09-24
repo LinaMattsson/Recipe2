@@ -2,7 +2,7 @@
 // console.log(recipes);
 // })
 
-
+let ingredientsToShow;
 // This funktion sorts out the ingredients that starts with the letters provided in the ingredients-search input
 $('#ingredient').keyup(function () {
     let value = $(this).val();
@@ -216,13 +216,13 @@ $('#submitRecipe').on('click', async function () {
 
 
 //ALLT NEDAN HÖR TILL SOK.HTML!!!
-
+let result;
 //Metod för att söka recept
 $('#search-recipe').on('click', async function () {
     let searchinput = $('#input-search-recipe').val().toLowerCase();
     recipes = await $.getJSON('/recipes.json').catch(console.err);
     let match = false;
-    let result;
+    
     console.log(recipes);
     for (let r of recipes) {
         if (searchinput == r.name.toLowerCase()) {
@@ -234,6 +234,7 @@ $('#search-recipe').on('click', async function () {
     if (match) {
         $('.result').text(result.name);
         $('.result').append('<br>');
+        // $('.result').append('<select id = "numberOfPortions"><option value = "2">2</option><option value = "4">4</option><option value = "6">6</option><option value = "8">8</option><option value = "10">10</option><option value = "12">12</select>');
 
         let ingredientlist;
         //if(result.ingredients.length>0){
@@ -245,6 +246,7 @@ $('#search-recipe').on('click', async function () {
           //  (result.nutrition[0].forEach(nut => ))
             $('.result').append(result.nutrition[2]);
         }
+        
     //}
         // else {
         //     let i = result.ingredienser;
@@ -257,6 +259,24 @@ $('#search-recipe').on('click', async function () {
     else {
         $('.result').text("Inget recept med det namnet hittades");
     }
-});
 
+
+})
+
+$('#numberOfPortions').on('change', function(){
+    $('.result').text(result.name);
+    $('.result').append('<br>');
+    // $('.result').append('<select id = "numberOfPortions"><option value = "2">2</option><option value = "4">4</option><option value = "6">6</option><option value = "8">8</option><option value = "10">10</option><option value = "12">12</select>');
+    let ingredientlist;
+//if(result.ingredients.length>0){
+    
+    for (let i of result.ingredients) {
+        $('.result').append(i.name + " ");
+        $('.result').append(i.quantity*$(this).val()/2);
+        $('.result').append(i.unit);
+        $('.result').append('</br>');
+  //  (result.nutrition[0].forEach(nut => ))
+        $('.result').append(result.nutrition[2]);
+    }
+});
 //addRecipe()
