@@ -406,5 +406,64 @@
             "Pole": 0,
             "NaCl": 8
         }
+    },
+    {
+        "name": "Underbart",
+        "ingredients": [
+            {
+                "name": "Havredryck berikad",
+                "quantity": "200",
+                "unit": "ml",
+                "inGrams": "1"
+            },
+            {
+                "name": "Honung",
+                "quantity": "1",
+                "unit": "dl",
+                "inGrams": "100"
+            }
+        ],
+        "todo": [
+            "hallå"
+        ],
+        "nutrition": {
+            "Ener": 416,
+            "Prot": 0,
+            "Kolh": 95,
+            "Mono/disack": 80,
+            "Mfet": 0,
+            "Mone": 0,
+            "Pole": 0,
+            "NaCl": 0
+        }
+    },
+    {
+        "name": "LinasBlåbär",
+        "picture": "hittepå",
+        "tags": [
+            "mat"
+        ],
+        "ingredients": [
+            {
+                "name": "Julmust påskmust",
+                "quantity": "3",
+                "unit": "dl",
+                "inGrams": "100"
+            }
+        ],
+        "todo": [
+            "gör 1\n",
+            "gör 2"
+        ],
+        "nutrition": {
+            "Ener": 102,
+            "Prot": 0,
+            "Kolh": 24,
+            "Mono/disack": 24,
+            "Mfet": 0,
+            "Mone": 0,
+            "Pole": 0,
+            "NaCl": 0
+        }
     }
 ]

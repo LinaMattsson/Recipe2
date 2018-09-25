@@ -1,6 +1,4 @@
-// $.getJSON('/autocomplete-ingredient-name/bac', function(recipes){
-// console.log(recipes);
-// })
+
 
 let ingredientsToShow;
 // This funktion sorts out the ingredients that starts with the letters provided in the ingredients-search input
@@ -82,13 +80,6 @@ $('#recipe-name-button').on('click', function () {
     let input = $('#recipe-name').val();
     recipeName = input;
     showInPreview($('#rubrik ul'),$('#rubrik'), deleteName, input, true);
-    // $('#rubrik ul').empty();
-    // console.log(input);
-    // $('#rubrik ul').append('<li>' + input + '</li>');
-    // if (deleteName == 0) {
-    //     console.log('här')
-    //     $('#rubrik').append('  <input type="button" value="Töm"></input>');
-    // }
     $('#recipe-name').val("")
     deleteName++;
 })
@@ -100,10 +91,6 @@ $('#toDo-button').on('click', function () {
     let input = $('#toDo').val();
     todoList.push(input);
     showInPreview($('#toDo-pre ul'),$('#toDo-pre'), deleteToDo, input, false);
-    // $('#toDo-pre ul').append('<li>' + input + '</li>');
-    // if (deleteToDo == 0) {
-    //     $('#toDo-pre').append('  <input type="button" value="Töm"></input>');
-    // }
     $('#toDo').val("");
     deleteToDo++;
 })
@@ -143,7 +130,7 @@ function showInPreview(targetingUl, targeting, deleteCount, input, oneOnly){
     }
 }
 
-//Method to delete title och todo in preview recipe
+//Method to delete title, todo, tags, picture in preview recipe
 $('.pre-recipe').on('click', 'input', function () {
     console.log('try to empty')
     let ulList = $(this).closest('div').attr('id');
@@ -172,23 +159,12 @@ $('.pre-recipe').on('click', 'input', function () {
     console.log('deleted' + ulList);
 });
 
-//This function is not permanent
-// async function start() {
-//     recipes = await $.getJSON('/recipes.json').catch(console.err);
-//     console.log(recipes);
-//     // let recipes2 = await $.getJSON('/recipe2.json');
-// }
 
 //Metod för att få fram näringsvärde till receptet och lägga till det i recipe.json
 $('#submitRecipe').on('click', async function () {
-    if (recipeIngredients.length > 0 && todoList.length > 0 && recipeName !== "") {
+    if (recipeIngredients.length > 0 && todoList.length > 0 && recipeName !== "" && recipePicture!=="" && recipeTags.length>0) {
         console.log('receptet ska sparas strax')
-        let nutrition = /*[
-            ["Energi i kcal", "Protein", "Kolhydrater", "varav Sockerarter",
-            "Mättat fett", "OmättatFett", "Fleromättat fett", "Salt"],
-            ["Ener", "Prot", "Kolh", "Mono/disack", "Mfet", "Mone", "Pole", "NaCl"],
-            ["0", "0", "0", "0", "0", "0", "0", "0"],
-            ["kcal", "g", "g", "g", "g", "g", "g", "g"]];*/
+        let nutrition = 
             {
                 "Ener" : 0,
                 "Prot" : 0,
@@ -237,11 +213,13 @@ $('#submitRecipe').on('click', async function () {
         //Gör receptet till ett objekt som kan skickas till recipe.json
         let recipe = {
             name: recipeName,
+            picture: recipePicture,
+            tags: recipeTags,
             ingredients: recipeIngredients,
             todo: todoList,
             nutrition: nutrition
         };
-        console.log('aaaaaaa', recipe);
+        
         $.ajax({
             type : "POST",
             url: "/add-recipe",
@@ -250,9 +228,6 @@ $('#submitRecipe').on('click', async function () {
             dataType: "json",
             headers: {"Content-type": "application/json"}
         })
-        // $.post('/add-recipe', recipe, function () {
-        //     console.log('sparat');
-        // }, "json");
     }
     else {
         console.log("alla fält måste vara i fyllda")
@@ -326,4 +301,4 @@ $('#numberOfPortions').on('change', function(){
         $('.result').append(result.nutrition[2]);
     }
 });
-//addRecipe()
+
