@@ -74,35 +74,74 @@ $('#choose-ingredient').on('click', 'a', function () {
 })
 
 
-//This two simular functions are posting the title and todo of the recipe to a preview
+//This four simular functions are posting to a preview
+//Name
 let deleteName = 0;
 let recipeName = "";
 $('#recipe-name-button').on('click', function () {
     let input = $('#recipe-name').val();
     recipeName = input;
-    $('#rubrik ul').empty();
-    console.log(input);
-    $('#rubrik ul').append('<li>' + input + '</li>');
-    if (deleteName == 0) {
-        console.log('här')
-        $('#rubrik').append('  <input type="button" value="Töm"></input>');
-    }
+    showInPreview($('#rubrik ul'),$('#rubrik'), deleteName, input, true);
+    // $('#rubrik ul').empty();
+    // console.log(input);
+    // $('#rubrik ul').append('<li>' + input + '</li>');
+    // if (deleteName == 0) {
+    //     console.log('här')
+    //     $('#rubrik').append('  <input type="button" value="Töm"></input>');
+    // }
     $('#recipe-name').val("")
     deleteName++;
 })
 
+//Todo
 let deleteToDo = 0;
 let todoList = [];
 $('#toDo-button').on('click', function () {
     let input = $('#toDo').val();
     todoList.push(input);
-    $('#toDo-pre ul').append('<li>' + input + '</li>');
-    if (deleteToDo == 0) {
-        $('#toDo-pre').append('  <input type="button" value="Töm"></input>');
-    }
+    showInPreview($('#toDo-pre ul'),$('#toDo-pre'), deleteToDo, input, false);
+    // $('#toDo-pre ul').append('<li>' + input + '</li>');
+    // if (deleteToDo == 0) {
+    //     $('#toDo-pre').append('  <input type="button" value="Töm"></input>');
+    // }
     $('#toDo').val("");
     deleteToDo++;
 })
+
+//Picture
+let deletePicture = 0;
+let recipePicture = "";
+$('#recipe-picture-button').on('click', function () {
+    let input = $('#recipe-picture').val();
+    recipePicture = input;
+    showInPreview($('#pre-picture ul'),$('#pre-picture'),deletePicture,input, true);
+    $('#recipe-picture').val("")
+    deletePicture++;
+})
+
+//Tags
+let deleteTags = 0;
+let recipeTags = [];
+$('#recipe-tag-button').on('click', function () {
+    let input = $('#recipe-tag').val();
+    recipeTags.push(input);
+    showInPreview($('#pre-tags ul'),$('#pre-tags'),deleteTags, input, false);
+    $('#recipe-tag').val("")
+    deleteTags++;
+})
+
+//Function to show Recipe-Name, Picture-url, ingrdeients, todo, tags in preview
+function showInPreview(targetingUl, targeting, deleteCount, input, oneOnly){
+    if(oneOnly){
+        targetingUl.empty();
+    }   
+    console.log(input);
+    targetingUl.append('<li>' + input + '</li>');
+    if (deleteCount == 0) {
+        console.log('här')
+        targeting.append('<input type="button" value="Töm"></input>');
+    }
+}
 
 //Method to delete title och todo in preview recipe
 $('.pre-recipe').on('click', 'input', function () {
@@ -121,16 +160,24 @@ $('.pre-recipe').on('click', 'input', function () {
         recipeIngredients = [];
         $('#ingredienser').append('<ul>' + '</ul>');
         deleteIngredient = 0;
-    }
+    } else if (ulList == 'pre-picture') {
+         recipePicture = "";
+        $('#pre-picture').append('<ul>' + '</ul>');
+        deletePicture = 0;
+    } else if (ulList == 'pre-tags') {
+        recipeTags = [];
+        $('#pre-tags').append('<ul>' + '</ul>');
+        deleteTags = 0;
+}
     console.log('deleted' + ulList);
 });
 
 //This function is not permanent
-async function start() {
-    recipes = await $.getJSON('/recipes.json').catch(console.err);
-    console.log(recipes);
-    // let recipes2 = await $.getJSON('/recipe2.json');
-}
+// async function start() {
+//     recipes = await $.getJSON('/recipes.json').catch(console.err);
+//     console.log(recipes);
+//     // let recipes2 = await $.getJSON('/recipe2.json');
+// }
 
 //Metod för att få fram näringsvärde till receptet och lägga till det i recipe.json
 $('#submitRecipe').on('click', async function () {
@@ -222,7 +269,7 @@ $('#search-recipe').on('click', async function () {
     let searchinput = $('#input-search-recipe').val().toLowerCase();
     recipes = await $.getJSON('/recipes.json').catch(console.err);
     let match = false;
-    
+    $('#numberOfPortions').val(2);
     console.log(recipes);
     for (let r of recipes) {
         if (searchinput == r.name.toLowerCase()) {
