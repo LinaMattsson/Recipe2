@@ -240,34 +240,115 @@ $('#submitRecipe').on('click', async function () {
 //ALLT NEDAN HÖR TILL SOK.HTML!!!
 let result;
 //Metod för att söka recept
-$('#search-recipe').on('click', async function () {
-    let searchinput = $('#input-search-recipe').val().toLowerCase();
-    recipes = await $.getJSON('/recipes.json').catch(console.err);
-    let match = false;
+// $('#search-recipe').on('click', async function () {
+//     let searchinput = $('#input-search-recipe').val().toLowerCase();
+//     recipes = await $.getJSON('/recipes.json').catch(console.err);
+//     let match = false;
+//     $('#numberOfPortions').val(2);
+//     console.log(recipes);
+//     for (let r of recipes) {
+//         if (searchinput == r.name.toLowerCase()) {
+//             console.log(r.name)
+//             match = true;
+//             result = r;
+//         }
+//     }
+//     if (match) {
+//         $('.result').text(result.name);
+//         $('.result').append('<br>');
+//         // $('.result').append('<select id = "numberOfPortions"><option value = "2">2</option><option value = "4">4</option><option value = "6">6</option><option value = "8">8</option><option value = "10">10</option><option value = "12">12</select>');
+
+//         let ingredientlist;
+//         //if(result.ingredients.length>0){
+//         for (let i of result.ingredients) {
+//             $('.result').append(i.name + " ");
+//             $('.result').append(i.quantity);
+//             $('.result').append(i.unit);
+//             $('.result').append('</br>');
+//           //  (result.nutrition[0].forEach(nut => ))
+//             $('.result').append(result.nutrition[2]);
+//         }
+        
+//     //}
+//         // else {
+//         //     let i = result.ingredienser;
+//         //     $('.result').append(i.name + " ");
+//         //     $('.result').append(i.antal);
+//         //     $('.result').append(i.enhet);
+//         //     $('.result').append('<br>');
+//         // }
+//     }
+//     else {
+//         $('.result').text("Inget recept med det namnet hittades");
+//     }
+
+
+// })
+
+//copy of previous method
+let matchedRecipes = [];
+$('#input-search-recipe').keyup(async function () {
+    $('.result').empty();
     $('#numberOfPortions').val(2);
-    console.log(recipes);
+
+    let searchinput = $('#input-search-recipe').val().toLowerCase();
+    let recipes = await $.getJSON('/recipes.json').catch(console.err);
+    
+    if(recipes){
+        saveRecipesInArray(recipes, searchinput);
+        }
+    else {
+        $('.result').text("Inget recept med det namnet hittades");
+    }  
+    if(matchedRecipes.length>0){
+        showRecipes(matchedRecipes);
+        matchedRecipes = [];
+    }
+    
+});
+// saves matched recepies when searching
+function saveRecipesInArray(recipes, searchinput){
     for (let r of recipes) {
-        if (searchinput == r.name.toLowerCase()) {
-            console.log(r.name)
+        if (r.name.toLowerCase().startsWith(searchinput)) {
+            console.log(r.name + "rad 299")
             match = true;
             result = r;
-        }
-    }
-    if (match) {
-        $('.result').text(result.name);
-        $('.result').append('<br>');
-        // $('.result').append('<select id = "numberOfPortions"><option value = "2">2</option><option value = "4">4</option><option value = "6">6</option><option value = "8">8</option><option value = "10">10</option><option value = "12">12</select>');
+            recipeInList = {
+                name: r.name,
+                picture: r.picture
+            };
+        matchedRecipes.push(recipeInList);
+}}
+};
 
-        let ingredientlist;
-        //if(result.ingredients.length>0){
-        for (let i of result.ingredients) {
-            $('.result').append(i.name + " ");
-            $('.result').append(i.quantity);
-            $('.result').append(i.unit);
-            $('.result').append('</br>');
-          //  (result.nutrition[0].forEach(nut => ))
-            $('.result').append(result.nutrition[2]);
+//Function that shows found recipes in browser
+function showRecipes(recipesToShow){
+    $('.result').append("<div></div>")
+        for(rec of recipesToShow){
+            console.log("rad313")
+            if(rec.picture){
+                $('.result').append("<ul><a href='#'><li>"+rec.name +"</li><li><img src='"+rec.picture+"' alt='Linastest'></img></a></li>");
+            }
+            else{
+                $('.result').append("<ul><li><a href='#'>" + rec.name + "</a></li></ul>");
+            }
         }
+}
+    // if (match) {
+    //     $('.result').text(result.name);
+    //     $('.result').append('<br>');
+    //     // $('.result').append('<select id = "numberOfPortions"><option value = "2">2</option><option value = "4">4</option><option value = "6">6</option><option value = "8">8</option><option value = "10">10</option><option value = "12">12</select>');
+
+    //     let ingredientlist;
+    //     //if(result.ingredients.length>0){
+    //     for (let i of result.ingredients) {
+    //         $('.result').append(i.name + " ");
+    //         $('.result').append(i.quantity);
+    //         $('.result').append(i.unit);
+    //         $('.result').append('</br>');
+    //       //  (result.nutrition[0].forEach(nut => ))
+    //         $('.result').append(result.nutrition[2]);
+    //     }
         
     //}
         // else {
@@ -277,13 +358,8 @@ $('#search-recipe').on('click', async function () {
         //     $('.result').append(i.enhet);
         //     $('.result').append('<br>');
         // }
-    }
-    else {
-        $('.result').text("Inget recept med det namnet hittades");
-    }
-
-
-})
+    
+ 
 
 $('#numberOfPortions').on('change', function(){
     $('.result').text(result.name);
