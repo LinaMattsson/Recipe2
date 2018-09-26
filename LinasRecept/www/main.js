@@ -94,10 +94,20 @@ $('#toDo-button').on('click', function () {
     $('#toDo').val("");
     deleteToDo++;
 })
+//Description
+let deleteDescription = 0;
+let description;
+$('#recipe-description-button').on('click', function () {
+    let input = $('#recipe-description').val();
+    description = input;
+    showInPreview($('#pre-description ul'),$('#pre-description'), deleteDescription, input, true);
+    $('#recipe-description').val("");
+    deleteDescription++;
+})
 
 //Picture
 let deletePicture = 0;
-let recipePicture = "";
+let recipePicture;
 $('#recipe-picture-button').on('click', function () {
     let input = $('#recipe-picture').val();
     recipePicture = input;
@@ -139,32 +149,31 @@ function showInPreview(targetingUl, targeting, deleteCount, input, oneOnly){
     }
 }
 
-//Method to delete title, todo, tags, picture in preview recipe
+//Method to delete title, todo, tags, picture, description in preview recipe
 $('.pre-recipe').on('click', 'input', function () {
-    console.log('try to empty')
-    let ulList = $(this).closest('div').attr('id');
-    $(this).closest('div').empty();
+    let div = $(this).closest('div');
+    let ulList = div.attr('id');
+    div.empty();
+    div.append('<ul></ul>');
     if (ulList == 'rubrik') {
         recipeName = "";
-        $('#rubrik').append('<ul>' + '</ul>');
         deleteName = 0;
     } else if (ulList == 'toDo-pre') {
         todoList = [];
-        $('#toDo-pre').append('<ul>' + '</ul>');
         deleteToDo = 0;
     } else if (ulList == 'ingredienser') {
         recipeIngredients = [];
-        $('#ingredienser').append('<ul>' + '</ul>');
         deleteIngredient = 0;
     } else if (ulList == 'pre-picture') {
          recipePicture = "";
-        $('#pre-picture').append('<ul>' + '</ul>');
         deletePicture = 0;
     } else if (ulList == 'pre-tags') {
         recipeTags = [];
-        $('#pre-tags').append('<ul>' + '</ul>');
         deleteTags = 0;
-}
+    } else if (ulList == 'pre-description'){
+        description = "";
+        deleteDescription = 0 ;
+    }
     console.log('deleted' + ulList);
 });
 
@@ -247,6 +256,7 @@ $('#submitRecipe').on('click', async function () {
 
 
 //ALLT NEDAN HÖR TILL SOK.HTML!!!
+
 let result;
 //Metod för att söka recept
 // $('#search-recipe').on('click', async function () {
@@ -294,7 +304,7 @@ let result;
 
 // })
 
-//copy of previous method
+//Method to search for recipe
 let matchedRecipes = [];
 $('#input-search-recipe').keyup(async function () {
     matchedRecipes = [];
@@ -303,7 +313,29 @@ $('#input-search-recipe').keyup(async function () {
 
     let searchinput = $('#input-search-recipe').val().toLowerCase();
     let recipes = await $.getJSON('/recipes.json').catch(console.err);
-    saveMatchedRecipesInArray(recipes, searchinput);
+    saveMatchedRecipesInArray(recipes, searchinput, false);
+    if(matchedRecipes.length>0){
+        showRecipes(matchedRecipes);  
+    }
+    else { $('.result').text("Inget recept med det namnet hittades");} 
+    
+    $('.result a').on('click', function(){        
+        let clickedName = $(this).text();
+        console.log(clickedName);
+        findSingleRecipe(clickedName, recipes)
+    });
+});
+
+//Copy of serach recipe to make possible to search with tags
+$('.tag-checkbox').on('change', async function () {
+    matchedRecipes = [];
+    $('.result').empty();
+    $('#numberOfPortions').val(2);
+
+    let taginput = $('.tag-checkbox').val().toLowerCase();
+    console.log(taginput);
+    let recipes = await $.getJSON('/recipes.json').catch(console.err);
+    saveMatchedRecipesInArray(recipes, taginput, true);
     if(matchedRecipes.length>0){
         showRecipes(matchedRecipes);  
     }
@@ -355,28 +387,34 @@ function showSingleRecipe(recipe){
 }
 
 // saves matched recepies when searching
-function saveMatchedRecipesInArray(recipes, searchinput){
+function saveMatchedRecipesInArray(recipes, searchinput, isTag){
     for (let r of recipes) {
-        if (r.name.toLowerCase().startsWith(searchinput)) {
-            match = true;
+        //console.log("dessa taggar"+r.tags);
+        //console.log(searchinput);
+        if((isTag && r.tags.includes(searchinput)) || (!isTag && r.name.toLowerCase().startsWith(searchinput))){//funkar antagligen inte
+            //match = true;
+            console.log("hittar match")
             result = r;
             recipeInList = {
                 name: r.name,
                 picture: r.picture
             };
-        matchedRecipes.push(recipeInList);
-}}
+            matchedRecipes.push(recipeInList);
+        };
+    };
 };
 
 //Function that shows found recipes in browser
 function showRecipes(recipesToShow){
-    $('.result').append("<div></div>")
+    $('.result-temp').append("<div><ul></ul></div>")
         for(rec of recipesToShow){
             if(rec.picture){
-                $('.result').append("<ul><a href='#'><li>"+rec.name +"</li><li><img src='"+rec.picture+"' alt='Linastest'></img></li></a></ul>");
+                $('.result-temp').append("<a href='#'><li>"+rec.name +"</li><li><img src='"+rec.picture+"' alt='Linastest'></img></li></a>");
             }
             else{
-                $('.result').append("<ul><a href='#'><li>" + rec.name + "</li></a></ul>");
+                console.log("rad 406");
+                debugger
+                $('.result-temp').append("<a href='#'><li>" + rec.name + "</li></a>");
             }
         }
 };

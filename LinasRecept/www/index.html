@@ -12,11 +12,13 @@
        <form class="add-recipe">
            Receptnamn: <br>
            <input type="text" name="recipe-name" id="recipe-name"><input type="button" value ="Lägg till" id="recipe-name-button"> <br>
+           Beskrivning: <br>
+           <input type ="text" name="recipe-description" id = "recipe-description"><input type="button" value="Lägg till" id="recipe-description-button"><br>
            Bildadress: <br>
            <input type="text" name="recipe-picture" id="recipe-picture"><input type="button" value ="Lägg till" id="recipe-picture-button"> <br>
-          Taggar:<br>
+          <!-- Taggar:<br>
           <input type="text" name="recipe-tag" id="recipe-tag"><input type="button" value ="Lägg till" id="recipe-tag-button"> <br>
-           Taggar:
+           --> Taggar: <br>
            <select id="recipe-tag-select">
                <option value="frukost">frukost</option>
                <option value="lunch">lunch</option>
@@ -36,6 +38,8 @@
            <h1>Recept granskning</h1>
            <h6>Receptnamn:</h6>
            <div id ="rubrik"><ul></ul></div>
+           <h6>Beskrivning</h6>
+           <div id = "pre-description"><ul></ul></div>
            <h6>Bildadress</h6>
            <div id="pre-picture"><ul></ul></div>
            <h6>Taggar</h6>

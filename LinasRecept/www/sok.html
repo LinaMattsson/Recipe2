@@ -1,11 +1,10 @@
 <html>
-        <head>
-                
-                <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-                crossorigin="anonymous"></script>
-            <script src="main.js" defer></script>
-        </head>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+        <script src="main.js" defer></script>
+    </head>
     <body>
         <nav><ul><li><a href="index.html">Lägg till recept</a></li><li><a href="sok.html"> Sök på recept</a></li></ul></nav>
         <h1>Sök på Recept här!</h1>
@@ -14,18 +13,26 @@
            <input type="text" name="recipe-name" id="input-search-recipe"><br>
            <input type="button" name="search-recipe" id="search-recipe" value="sök">
        </form> 
+       <div>
+           <h2>Välj kategori</h2>
+           <select class="tag-checkbox" placeholder = "Välj kategori">
+                <option value="" hidden>Välj kategori</option>
+               <option class ="tag-option" type="checkbox" name="tag" value="frukost">Frukost</option>
+               <option class ="tag-option" type="checkbox" name="tag" value="lunch">Lunch</option>
+               <option class ="tag-option" type="checkbox" name="tag" value="middag">Middag</option>
+           </select>
+       </div>
        <select id = "numberOfPortions">
             <option value = "2">2</option><option value = "4">4</option>
             <option value = "6">6</option><option value = "8">8</option>
             <option value = "10">10</option><option value = "12">12</option>
         </select>
-       <div class="result" id="div-result">Här kommer receptet</div>
+       <div class="result result-temp" id="div-result">Här kommer receptet</div>
        <div class ="result" id="div-description"></div>
        <div class ="result" id="div-picture"></div>
        <div class ="result" id="div-ingredients"></div>
        <div class ="result" id="div-todo"></div>
        <div class ="result" id="div-nutrition"></div>
-        
     </body>
     <footer></footer>
 </html>
