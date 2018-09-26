@@ -669,5 +669,92 @@
             "Pole": 0,
             "NaCl": 0
         }
+    },
+    {
+        "name": "1",
+        "picture": "1",
+        "description": "1",
+        "tags": [
+            "frukost"
+        ],
+        "ingredients": [
+            {
+                "name": "Alfalfagroddar",
+                "quantity": "1",
+                "unit": "q",
+                "inGrams": "1"
+            }
+        ],
+        "todo": [
+            "q12q"
+        ],
+        "nutrition": {
+            "Ener": 0.32,
+            "Prot": 0.04,
+            "Kolh": 0,
+            "Mono/disack": 0,
+            "Mfet": 0,
+            "Mone": 0,
+            "Pole": 0,
+            "NaCl": 0
+        }
+    },
+    {
+        "name": "111",
+        "picture": "111",
+        "description": "111",
+        "tags": [
+            "frukost"
+        ],
+        "ingredients": [
+            {
+                "name": "Asterix rå",
+                "quantity": "1",
+                "unit": "q",
+                "inGrams": "1"
+            }
+        ],
+        "todo": [
+            "111"
+        ],
+        "nutrition": {
+            "Ener": 0.74,
+            "Prot": 0.01,
+            "Kolh": 0.14,
+            "Mono/disack": 0,
+            "Mfet": 0,
+            "Mone": 0,
+            "Pole": 0,
+            "NaCl": 0
+        }
+    },
+    {
+        "name": "222",
+        "picture": "222",
+        "description": "222",
+        "tags": [
+            "lunch"
+        ],
+        "ingredients": [
+            {
+                "name": "Björnbär",
+                "quantity": "1",
+                "unit": "q",
+                "inGrams": "1"
+            }
+        ],
+        "todo": [
+            "222"
+        ],
+        "nutrition": {
+            "Ener": 0.44,
+            "Prot": 0,
+            "Kolh": 0.06,
+            "Mono/disack": 0.06,
+            "Mfet": 0,
+            "Mone": 0,
+            "Pole": 0,
+            "NaCl": 0
+        }
     }
 ]

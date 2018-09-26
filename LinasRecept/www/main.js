@@ -63,6 +63,8 @@ $('#choose-ingredient').on('click', 'a', function () {
                 }
                 recipeIngredients.push(ingredientToAppend);
                 console.log(recipeIngredients)
+                $('#choose-ingredient').empty();
+                $('.add-ingredient h1').empty();
             }
             else if (numErr == 0) {
                 $('#choose-ingredient').append('"Mängd" och "i gram" får bara vara siffror, "enhet" ska vara i bokstäver');
@@ -117,16 +119,6 @@ $('#recipe-picture-button').on('click', function () {
     deletePicture++;
 })
 
-//Tags
-// let deleteTags = 0;
-// let recipeTags = [];
-// $('#recipe-tag-button').on('click', function () {
-//     let input = $('#recipe-tag').val();
-//     recipeTags.push(input);
-//     showInPreview($('#pre-tags ul'),$('#pre-tags'),deleteTags, input, false);
-//     $('#recipe-tag').val("")
-//     deleteTags++;
-// })
 //Tags 2
 let deleteTags = 0;
 let recipeTags = [];
@@ -179,7 +171,7 @@ $('.pre-recipe').on('click', 'input', function () {
 });
 
 
-//Metod för att få fram näringsvärde till receptet och lägga till det i recipe.json
+//Method to get the right nutrition data and add it to the recipe.json
 $('#submitRecipe').on('click', async function () {
     if (recipeIngredients.length > 0 && todoList.length > 0 && recipeName !== "" && recipePicture!=="" && recipeTags.length>0) {
         console.log('receptet ska sparas strax')
@@ -207,7 +199,7 @@ $('#submitRecipe').on('click', async function () {
             for(let nutrient of nutritions){
                 const shortName = nutrient.Forkortning;
                 const value = nutrient.Varde;
-                debugger;
+                //debugger;
                 if(nutrition.hasOwnProperty(shortName)){
                     let quantity = ingredient.quantity.replace(",", ".");
                     let inGrams = ingredient.inGrams.replace(",", ".");
@@ -215,21 +207,9 @@ $('#submitRecipe').on('click', async function () {
                     nutrition[shortName] += (parseFloat(value)*parseFloat(quantity)*parseFloat(inGrams)/100);
                 }
             }
-                // let shortPath = nutritionPerIng[0].Naringsvarden.Naringsvarde;
-                // let index = shortPath.map(obj => obj.Forkortning).indexOf(nutrition[1][a]);
-                // let num = shortPath[index].Varde;
-                // num = num.replace(",", ".");
-                // num = num.replace(" ", "");
-                // ingredient.quantity = ingredient.quantity.replace(",", "."); //This could be the reason why the decimals don't add upp correct
-                // ingredient.inGrams = ingredient.inGrams.replace(",", ".");
-                // let percent = parseFloat(ingredient.quantity) * parseFloat(ingredient.inGrams) / 100;
-                // nutrition[2][a] = parseFloat(nutrition[2][a]) + (parseFloat(num) * percent);
-                // //let t= parseFloat(nutrition[2][a]) + parseFloat(shortPath[index].Varde);
-                // console.log("index " + index)
-                // console.log("värde " + nutrition[2][a]);
-            
         };
-        //Gör receptet till ett objekt som kan skickas till recipe.json
+
+        //Making a recipe-object that is sent to recipe.json
         let recipe = {
             name: recipeName,
             picture: recipePicture,
@@ -248,6 +228,16 @@ $('#submitRecipe').on('click', async function () {
             dataType: "json",
             headers: {"Content-type": "application/json"}
         })
+        $('.pre-recipe').find('div').empty().append('<ul></ul>');
+        deleteName=0;
+        deletePicture=0;
+        deleteDescription=0;
+        deleteTags=0;
+        deleteIngredient=0;
+        deleteToDo=0;
+        recipeTags=[];
+        todoList=[];
+        recipeIngredients=[];
     }
     else {
         console.log("alla fält måste vara i fyllda")
@@ -259,54 +249,8 @@ $('#submitRecipe').on('click', async function () {
 
 //ALLT NEDAN HÖR TILL SOK.HTML!!!
 
-let result;
-//Metod för att söka recept
-// $('#search-recipe').on('click', async function () {
-//     let searchinput = $('#input-search-recipe').val().toLowerCase();
-//     recipes = await $.getJSON('/recipes.json').catch(console.err);
-//     let match = false;
-//     $('#numberOfPortions').val(2);
-//     console.log(recipes);
-//     for (let r of recipes) {
-//         if (searchinput == r.name.toLowerCase()) {
-//             console.log(r.name)
-//             match = true;
-//             result = r;
-//         }
-//     }
-//     if (match) {
-//         $('.result').text(result.name);
-//         $('.result').append('<br>');
-//         // $('.result').append('<select id = "numberOfPortions"><option value = "2">2</option><option value = "4">4</option><option value = "6">6</option><option value = "8">8</option><option value = "10">10</option><option value = "12">12</select>');
-
-//         let ingredientlist;
-//         //if(result.ingredients.length>0){
-//         for (let i of result.ingredients) {
-//             $('.result').append(i.name + " ");
-//             $('.result').append(i.quantity);
-//             $('.result').append(i.unit);
-//             $('.result').append('</br>');
-//           //  (result.nutrition[0].forEach(nut => ))
-//             $('.result').append(result.nutrition[2]);
-//         }
-        
-//     //}
-//         // else {
-//         //     let i = result.ingredienser;
-//         //     $('.result').append(i.name + " ");
-//         //     $('.result').append(i.antal);
-//         //     $('.result').append(i.enhet);
-//         //     $('.result').append('<br>');
-//         // }
-//     }
-//     else {
-//         $('.result').text("Inget recept med det namnet hittades");
-//     }
-
-
-// })
-
 //Method to search for recipe
+let result;
 let matchedRecipes = [];
 $('#input-search-recipe').keyup(async function () {
     matchedRecipes = [];
