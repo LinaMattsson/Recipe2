@@ -28,6 +28,7 @@ let deleteIngredient = 0;
 $('#choose-ingredient').on('click', 'a', function () {
     let ing = this.text;
     console.log(ing);
+    $('#ingredient').val("");
     $('.add-ingredient h1').text('Ange mängd');
     $('#choose-ingredient').empty();
     $('#choose-ingredient').append(ing);
@@ -72,7 +73,7 @@ $('#choose-ingredient').on('click', 'a', function () {
 })
 
 
-//This four simular functions are posting to a preview
+//This five simular functions are posting to a preview
 //Name
 let deleteName = 0;
 let recipeName = "";
@@ -137,15 +138,15 @@ $('#recipe-tag-button2').on('click', function () {
 })
 
 //Function to show Recipe-Name, Picture-url, ingrdeients, todo, tags in preview
-function showInPreview(targetingUl, targeting, deleteCount, input, oneOnly){
+function showInPreview(targetUl, target, deleteCount, input, oneOnly){
     if(oneOnly){
-        targetingUl.empty();
+        targetUl.empty();
     }   
     console.log(input);
-    targetingUl.append('<li>' + input + '</li>');
+    targetUl.append('<li>' + input + '</li>');
     if (deleteCount == 0) {
         console.log('här')
-        targeting.append('<input type="button" value="Töm"></input>');
+        target.append('<input type="button" value="Töm"></input>');
     }
 }
 
@@ -232,6 +233,7 @@ $('#submitRecipe').on('click', async function () {
         let recipe = {
             name: recipeName,
             picture: recipePicture,
+            description: description,
             tags: recipeTags,
             ingredients: recipeIngredients,
             todo: todoList,
@@ -326,12 +328,11 @@ $('#input-search-recipe').keyup(async function () {
     });
 });
 
-//Copy of serach recipe to make possible to search with tags
+//Method to search with tags
 $('.tag-checkbox').on('change', async function () {
     matchedRecipes = [];
     $('.result').empty();
     $('#numberOfPortions').val(2);
-
     let taginput = $('.tag-checkbox').val().toLowerCase();
     console.log(taginput);
     let recipes = await $.getJSON('/recipes.json').catch(console.err);
@@ -358,11 +359,12 @@ function findSingleRecipe(recipeName, recipes){
 
 function showSingleRecipe(recipe){
     //console.log(recipe)
+    $('.tag-checkbox').val(0);
     $('.result').empty();
     $('#div-result').append('<h2>'+recipe.name+'</h2>');
     $('#div-picture').append('<img src= "'+recipe.picture +'"/>')
-    $('#div-ingredients').append('<h3>Ingredienser:</h3>')
-    $('#div-ingredients').append('<ul></ul>');
+    $('#div-ingredients').append('<h3>Ingredienser:</h3><ul></ul>');
+    $('#div-description').append(recipe.description);
     let x = recipe.ingredients.length;
     if(x>0){
         console.log("jippi")
@@ -413,7 +415,7 @@ function showRecipes(recipesToShow){
             }
             else{
                 console.log("rad 406");
-                debugger
+                //debugger
                 $('.result-temp').append("<a href='#'><li>" + rec.name + "</li></a>");
             }
         }
