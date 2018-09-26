@@ -187,19 +187,14 @@ $('#submitRecipe').on('click', async function () {
                 "NaCl" : 0
             }
 
-        // recipeIngredients.forEach(i => {
         for (let index = 0; index < recipeIngredients.length; ++index) {
             let ingredient = recipeIngredients[index];
-            console.log(ingredient.name)
             let tempName = encodeURI(ingredient.name)
-            let nutritionPerIng = await $.getJSON('/ingredient-name/' + tempName); // add url
+            let nutritionPerIng = await $.getJSON('/ingredient-name/' + tempName);
             let nutritions = nutritionPerIng[0].Naringsvarden.Naringsvarde;
-            console.log(nutritionPerIng)
-            //for (let a = 0; a < 8; a++) {
             for(let nutrient of nutritions){
                 const shortName = nutrient.Forkortning;
                 const value = nutrient.Varde;
-                //debugger;
                 if(nutrition.hasOwnProperty(shortName)){
                     let quantity = ingredient.quantity.replace(",", ".");
                     let inGrams = ingredient.inGrams.replace(",", ".");
