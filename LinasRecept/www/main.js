@@ -249,6 +249,26 @@ $('#submitRecipe').on('click', async function () {
 
 
 //ALLT NEDAN HÖR TILL SOK.HTML!!!
+let lastRecipes;
+async function onStart(){
+ RecipesOnStart = await $.getJSON('/recipes.json').catch(console.err);
+ let numberOfRecipes = RecipesOnStart.length;
+ console.log("välkommen")
+ let lastRecipes=[];
+    for(let index=numberOfRecipes-1; index>numberOfRecipes-7; index--){
+        lastRecipes.push(RecipesOnStart[index])
+    }
+    showRecipes(lastRecipes);
+    $('.result a').on('click', function(){        
+        let clickedName = $(this).text();
+        console.log(clickedName);
+        findSingleRecipe(clickedName, lastRecipes)
+    });
+};
+
+onStart();
+
+
 $('.showOnSingleRecipe').hide();
 //Method to search for recipe
 let result;
@@ -257,10 +277,7 @@ $('#input-search-recipe').keyup(async function () {
     $('.showOnSingleRecipe').hide();
     matchedRecipes = [];
     emptySearchOutputField();
-    // $('.colOne ul').empty();
-    // $('.colTwo ul').empty();
-    // $('.colThree ul').empty();
-    // $('.colFour ul').empty();
+    
     $('#numberOfPortions').val(2);
 
     let searchinput = $('#input-search-recipe').val().toLowerCase();
@@ -285,10 +302,6 @@ $('.tag-checkbox').on('change', async function () {
     $('.showOnSingleRecipe').hide();
     matchedRecipes = [];
     emptySearchOutputField();
-    // $('.colOne ul').empty();
-    // $('.colTwo ul').empty();
-    // $('.colThree ul').empty();
-    // $('.colFour ul').empty();
     $('#numberOfPortions').val(2);
     let taginput = $('.tag-checkbox').val().toLowerCase();
     console.log(taginput);
@@ -359,11 +372,7 @@ function showSingleRecipe(recipe){
 // saves matched recepies when searching
 function saveMatchedRecipesInArray(recipes, searchinput, isTag){
     for (let r of recipes) {
-        //console.log("dessa taggar"+r.tags);
-        //console.log(searchinput);
         if((isTag && r.tags.includes(searchinput)) || (!isTag && r.name.toLowerCase().startsWith(searchinput))){//funkar antagligen inte
-            //match = true;
-            console.log("hittar match")
             result = r;
             recipeInList = {
                 name: r.name,
@@ -376,39 +385,19 @@ function saveMatchedRecipesInArray(recipes, searchinput, isTag){
 
 //Function that shows found recipes in browser
 function showRecipes(recipesToShow){
-    // $('.result-temp').append("<div><ul></ul></div>")
-    // let orderInLines=4;
-    // let rowDiv;
-    // let numberOfRows=(recipesToShow-recipesToShow%4)/4 + 1;
-    let tempvariabel=0;
-        
+    let tempvariabel=0; 
     for(rec of recipesToShow){
-            if(tempvariabel%4==0){
+            if(tempvariabel%3==0){
                 console.log("col 1")
                 $('.colOne ul').append('<a href="#"><li>'+rec.name +'</li><li><img src="'+rec.picture+'" alt="Linastest"></img></li></a>');
                 tempvariabel++;
-            }else if(tempvariabel%4==1){
+            }else if(tempvariabel%3==1){
                 $('.colTwo ul').append('<a href="#"><li>'+rec.name +'</li><li><img src="'+rec.picture+'" alt="Linastest"></img></li></a>');
                 tempvariabel++;
-            }else if(tempvariabel%4==2){
+            }else if(tempvariabel%3==2){
                 $('.colThree ul').append('<a href="#"><li>'+rec.name +'</li><li><img src="'+rec.picture+'" alt="Linastest"></img></li></a>');
                 tempvariabel++;
-            }else if(tempvariabel%4==3){
-                $('.colFour ul').append('<a href="#"><li>'+rec.name +'</li><li><img src="'+rec.picture+'" alt="Linastest"></img></li></a>');
-                tempvariabel++;
             }
-                // $('.result-temp').append('<div class="col"></div>')
-            
-            // if(rec.picture){
-            //     $(rowDiv).append('<div class="col"><a href="#"><li>"+rec.name +"</li><li><img src="'+rec.picture+'" alt="Linastest"></img></li></a></div>');
-            //     orderInLines++;
-            // }
-            // else{
-            //     console.log("rad 406");
-            //     //debugger
-            //     $(rowDiv).append("<div clas='col'><a href='#'><li>" + rec.name + "</li></a></div>");
-            //     orderInLines++;
-            // }
         }
 };
 
@@ -417,30 +406,26 @@ $('#numberOfPortions').on('change', function(){
     $('#div-ingredients').empty();
     $('#div-ingredients').append('<h3>Ingredienser:</h3><ul></ul>');
     for (let i of tempIngredientList) {
-        debugger
-        // console.log(recipe.name)
         $('#div-ingredients ul').append('<li>'+i.name + " " +i.quantity*$(this).val()/2 + i.unit+'</li>');
     }
 });
 
-let logedIn =false;
-$('.login').on('click', function(){
-    console.log($('.uname').val())
-    if($('.uname').val()=="Lina" && $('.password').val()=="Mattsson"){
-        console.log('rad 382 inlogg rätt')
-        logedIn = true;
-        window.location = '/index.html';
-    }
-    else{$('container1').append("fel användarnamn eller lösenord")};
-});
+// let logedIn =false;
+// $('.login').on('click', function(){
+//     console.log($('.uname').val())
+//     if($('.uname').val()=="Lina" && $('.password').val()=="Mattsson"){
+//         console.log('rad 382 inlogg rätt')
+//         logedIn = true;
+//         window.location = '/index.html';
+//     }
+//     else{$('container1').append("fel användarnamn eller lösenord")};
+// });
 
 function emptySearchOutputField(){
-    debugger
     $('.colOne ul').empty();
     $('.colTwo ul').empty();
     $('.colThree ul').empty();
     $('.colFour ul').empty();
-    //$('#div-result').empty();
     $('#div-picture').empty();
     $('#div-ingredients').empty();
     $('#div-description').empty();
