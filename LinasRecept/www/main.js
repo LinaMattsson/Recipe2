@@ -1,4 +1,10 @@
-
+// let pin=false;
+// let getPin;
+// $('.admin').on('click', function(){
+//     while(getPin != "Lina"){
+//    getPin = prompt("Mata in lösenord")
+//    }
+// });
 
 let ingredientsToShow;
 // This funktion sorts out the ingredients that starts with the letters provided in the ingredients-search input
@@ -243,22 +249,29 @@ $('#submitRecipe').on('click', async function () {
 
 
 //ALLT NEDAN HÖR TILL SOK.HTML!!!
-
+$('.showOnSingleRecipe').hide();
 //Method to search for recipe
 let result;
 let matchedRecipes = [];
 $('#input-search-recipe').keyup(async function () {
+    $('.showOnSingleRecipe').hide();
     matchedRecipes = [];
-    $('.result').empty();
+    emptySearchOutputField();
+    // $('.colOne ul').empty();
+    // $('.colTwo ul').empty();
+    // $('.colThree ul').empty();
+    // $('.colFour ul').empty();
     $('#numberOfPortions').val(2);
 
     let searchinput = $('#input-search-recipe').val().toLowerCase();
     let recipes = await $.getJSON('/recipes.json').catch(console.err);
+    
     saveMatchedRecipesInArray(recipes, searchinput, false);
-    if(matchedRecipes.length>0){
+    if(matchedRecipes.length>0 && searchinput!=""){
         showRecipes(matchedRecipes);  
     }
-    else { $('.result').text("Inget recept med det namnet hittades");} 
+    else { 
+        $('.colOne ul').text("Inget recept med det namnet hittades");} 
     
     $('.result a').on('click', function(){        
         let clickedName = $(this).text();
@@ -269,8 +282,13 @@ $('#input-search-recipe').keyup(async function () {
 
 //Method to search with tags
 $('.tag-checkbox').on('change', async function () {
+    $('.showOnSingleRecipe').hide();
     matchedRecipes = [];
-    $('.result').empty();
+    emptySearchOutputField();
+    // $('.colOne ul').empty();
+    // $('.colTwo ul').empty();
+    // $('.colThree ul').empty();
+    // $('.colFour ul').empty();
     $('#numberOfPortions').val(2);
     let taginput = $('.tag-checkbox').val().toLowerCase();
     console.log(taginput);
@@ -279,7 +297,10 @@ $('.tag-checkbox').on('change', async function () {
     if(matchedRecipes.length>0){
         showRecipes(matchedRecipes);  
     }
-    else { $('.result').text("Inget recept med det namnet hittades");} 
+
+    else {
+        
+         $('.colOne ul').text("Inget recept med det namnet hittades");} 
     
     $('.result a').on('click', function(){        
         let clickedName = $(this).text();
@@ -288,19 +309,24 @@ $('.tag-checkbox').on('change', async function () {
     });
 });
 
-function findSingleRecipe(recipeName, recipes){
+function findSingleRecipe(clickedName, recipes){
     for(let r of recipes){
-        if(r.name == recipeName){
+        console.log(clickedName +" inne i findSIngleRecipe");
+        if(r.name == clickedName){
             showSingleRecipe(r);
         }
     }
 }
 
+let tempIngredientList;
 function showSingleRecipe(recipe){
+    $('.showOnSingleRecipe').show();
+
+    tempIngredientList=recipe.ingredients;
     //console.log(recipe)
     $('.tag-checkbox').val(0);
-    $('.result').empty();
-    $('#div-result').append('<h2>'+recipe.name+'</h2>');
+    emptySearchOutputField();
+    $('#div-title').append('<h2>'+recipe.name+'</h2>');
     $('#div-picture').append('<img src= "'+recipe.picture +'"/>')
     $('#div-ingredients').append('<h3>Ingredienser:</h3><ul></ul>');
     $('#div-description').append(recipe.description);
@@ -308,12 +334,15 @@ function showSingleRecipe(recipe){
     if(x>0){
         console.log("jippi")
         for(let ing of recipe.ingredients){
+            debugger
         $('#div-ingredients ul').append('<li>' + ing["name"] + " " + ing["quantity"] + " " + ing["unit"] + '</li>');}
-    }else{    $('#div-ingredients ul').append('<li>' + recipe.ingredients["name"] + " " + recipe.ingredients["quantity"] + " " + recipe.ingredients["unit"] + '</li>');}
+    }else{    
+        $('#div-ingredients ul').append('<li>' + recipe.ingredients["name"] + " " + recipe.ingredients["quantity"] + " " + recipe.ingredients["unit"] + '</li>');}
 
     $('#div-todo').append('<h3>Gör så här:</h3>')
     $('#div-todo').append('<ul></ul>');
     for(let todo of recipe.todo){
+        
         $('#div-todo ul').append('<li>' + todo + '</li>');
     }
     $('#div-nutrition').append('<h3>Näringsinnehåll:</h3>')
@@ -347,16 +376,39 @@ function saveMatchedRecipesInArray(recipes, searchinput, isTag){
 
 //Function that shows found recipes in browser
 function showRecipes(recipesToShow){
-    $('.result-temp').append("<div><ul></ul></div>")
-        for(rec of recipesToShow){
-            if(rec.picture){
-                $('.result-temp').append("<a href='#'><li>"+rec.name +"</li><li><img src='"+rec.picture+"' alt='Linastest'></img></li></a>");
+    // $('.result-temp').append("<div><ul></ul></div>")
+    // let orderInLines=4;
+    // let rowDiv;
+    // let numberOfRows=(recipesToShow-recipesToShow%4)/4 + 1;
+    let tempvariabel=0;
+        
+    for(rec of recipesToShow){
+            if(tempvariabel%4==0){
+                console.log("col 1")
+                $('.colOne ul').append('<a href="#"><li>'+rec.name +'</li><li><img src="'+rec.picture+'" alt="Linastest"></img></li></a>');
+                tempvariabel++;
+            }else if(tempvariabel%4==1){
+                $('.colTwo ul').append('<a href="#"><li>'+rec.name +'</li><li><img src="'+rec.picture+'" alt="Linastest"></img></li></a>');
+                tempvariabel++;
+            }else if(tempvariabel%4==2){
+                $('.colThree ul').append('<a href="#"><li>'+rec.name +'</li><li><img src="'+rec.picture+'" alt="Linastest"></img></li></a>');
+                tempvariabel++;
+            }else if(tempvariabel%4==3){
+                $('.colFour ul').append('<a href="#"><li>'+rec.name +'</li><li><img src="'+rec.picture+'" alt="Linastest"></img></li></a>');
+                tempvariabel++;
             }
-            else{
-                console.log("rad 406");
-                //debugger
-                $('.result-temp').append("<a href='#'><li>" + rec.name + "</li></a>");
-            }
+                // $('.result-temp').append('<div class="col"></div>')
+            
+            // if(rec.picture){
+            //     $(rowDiv).append('<div class="col"><a href="#"><li>"+rec.name +"</li><li><img src="'+rec.picture+'" alt="Linastest"></img></li></a></div>');
+            //     orderInLines++;
+            // }
+            // else{
+            //     console.log("rad 406");
+            //     //debugger
+            //     $(rowDiv).append("<div clas='col'><a href='#'><li>" + rec.name + "</li></a></div>");
+            //     orderInLines++;
+            // }
         }
 };
 
@@ -364,8 +416,36 @@ function showRecipes(recipesToShow){
 $('#numberOfPortions').on('change', function(){
     $('#div-ingredients').empty();
     $('#div-ingredients').append('<h3>Ingredienser:</h3><ul></ul>');
-    for (let i of result.ingredients) {
+    for (let i of tempIngredientList) {
+        debugger
+        // console.log(recipe.name)
         $('#div-ingredients ul').append('<li>'+i.name + " " +i.quantity*$(this).val()/2 + i.unit+'</li>');
     }
 });
+
+let logedIn =false;
+$('.login').on('click', function(){
+    console.log($('.uname').val())
+    if($('.uname').val()=="Lina" && $('.password').val()=="Mattsson"){
+        console.log('rad 382 inlogg rätt')
+        logedIn = true;
+        window.location = '/index.html';
+    }
+    else{$('container1').append("fel användarnamn eller lösenord")};
+});
+
+function emptySearchOutputField(){
+    debugger
+    $('.colOne ul').empty();
+    $('.colTwo ul').empty();
+    $('.colThree ul').empty();
+    $('.colFour ul').empty();
+    //$('#div-result').empty();
+    $('#div-picture').empty();
+    $('#div-ingredients').empty();
+    $('#div-description').empty();
+    $('#div-nutrition').empty();
+    $('#div-todo').empty();
+    $('#div-title').empty();
+}
 

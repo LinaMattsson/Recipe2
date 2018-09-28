@@ -1,41 +1,55 @@
 <html>
-    <head>
-            <script
-            src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
-        <script src="main.js" defer></script>
-    </head>
-    <body>
-            <nav><ul><li><a href="index.html">Lägg till recept</a></li><li><a href="sok.html"> Sök på recept</a></li></ul></nav>
-            <h1>Lägg till recept!</h1>
-       <form class="add-recipe">
-           Receptnamn: <br>
-           <input type="text" name="recipe-name" id="recipe-name"><input type="button" value ="Lägg till" id="recipe-name-button"> <br>
-           Beskrivning: <br>
-           <input type ="text" name="recipe-description" id = "recipe-description"><input type="button" value="Lägg till" id="recipe-description-button"><br>
-           Bildadress: <br>
-           <input type="text" name="recipe-picture" id="recipe-picture"><input type="button" value ="Lägg till" id="recipe-picture-button"> <br>
-          <!-- Taggar:<br>
-          <input type="text" name="recipe-tag" id="recipe-tag"><input type="button" value ="Lägg till" id="recipe-tag-button"> <br>
-           --> Taggar: <br>
-           <select id="recipe-tag-select">
-               <option value="frukost">frukost</option>
-               <option value="lunch">lunch</option>
-               <option value="middag">middag</option>
-           </select>
-           <input type="button" value ="Lägg till" id="recipe-tag-button2"> <br>
-         
-          Ingredienser: <br>
-           <input type="text" name="ingredients" id= "ingredient"><br>
-           Utförande: <br>
-           <textarea type="text" name="toDo" id="toDo"></textarea><input type="button" value = "Lägg till" id="toDo-button">
-       </form> 
-       <div class="add-ingredient"> <h1></h1>
-        <ul id="choose-ingredient"></ul>
-    </div>
-       <div class  = "pre-recipe">
-           <h1>Recept granskning</h1>
+<head>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheet.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    <script src="main.js" defer></script>
+</head>
+<body>
+        <!-- <div class= "container container-fluid header"> -->
+            <header><div class="container header"> <h1>Bakealicious <small>-by Lina</small></h1></div></header>
+        
+            <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+                <ul class="navbar-nav">
+                    <li class="nav-item active"><a class="nav-link" href="index.html">Logga ut</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="sok.html"> Sök på recept</a></li>
+                </ul>
+            </nav>
+        <!-- </div> -->
+        <div class="container container-fluid">
+        <div class="row">
+            <div class="container col">
+                <h1>Lägg till recept!</h1>
+                <form class="add-recipe">
+                Receptnamn: <br>
+                <input class="input" type="text" name="recipe-name" id="recipe-name"><input type="button" value ="Lägg till" id="recipe-name-button"> <br>
+                Beskrivning: <br>
+                <input class="input" type ="text" name="recipe-description" id = "recipe-description"><input type="button" value="Lägg till" id="recipe-description-button"><br>
+                Bildadress: <br>
+                <input class="input" type="text" name="recipe-picture" id="recipe-picture"><input type="button" value ="Lägg till" id="recipe-picture-button"> <br>
+                <!-- Taggar:<br>
+                <input type="text" name="recipe-tag" id="recipe-tag"><input type="button" value ="Lägg till" id="recipe-tag-button"> <br>
+           -->  Taggar: <br>
+                <select class="input" id="recipe-tag-select">
+                    <option value="frukost">frukost</option>
+                    <option value="lunch">lunch</option>
+                    <option value="middag">middag</option>
+                </select>
+                <input type="button" value ="Lägg till" id="recipe-tag-button2"> <br> 
+                Ingredienser: <br>
+                <input class="input" type="text" name="ingredients" id= "ingredient"><br>
+                Utförande: <br>
+                <textarea class="input" type="text" name="toDo" id="toDo"></textarea><input type="button" value = "Lägg till" id="toDo-button">
+            </form> 
+            <div class="add-ingredient"> <h1></h1>
+                <ul id="choose-ingredient"></ul>
+            </div>
+        </div>
+        <div class  = "pre-recipe container col">
+           <h1>Receptgranskning</h1>
            <h6>Receptnamn:</h6>
            <div id ="rubrik"><ul></ul></div>
            <h6>Beskrivning</h6>
@@ -48,9 +62,15 @@
            <div id ="ingredienser"><ul></ul></div>
            <h6>Utförande</h6>
            <div id = "toDo-pre"><ul></ul></div>
-       </div>
-       <input type="submit" id="submitRecipe" text="submit" value= "slutför">
+            <input type="submit" id="submitRecipe" text="submit" value= "slutför">
+            </div>
+        </div>
+        </div>
 
-    </body>
-    <footer></footer>
+        <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </div>           -->
+</body>
+<footer></footer>
 </html>

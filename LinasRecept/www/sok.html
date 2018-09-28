@@ -1,20 +1,36 @@
 <html>
     <head>
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+            <link rel="stylesheet" href="/stylesheet.css">
+            <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
         <script src="main.js" defer></script>
     </head>
     <body>
-        <nav><ul><li><a href="index.html">Lägg till recept</a></li><li><a href="sok.html"> Sök på recept</a></li></ul></nav>
-        <h1>Sök på Recept här!</h1>
+           <!-- <div class= "container container-fluid header"> -->
+                <header><div class="container header"> <h1>Bakealicious <small>-by Lina</small></h1></div></header>
+                <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active"><a class="nav-link" href="index.html">Logga ut</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="sok.html"> Sök på recept</a></li>
+                    </ul>
+                </nav>
+                <div class="container container-fluid">
+        <div class="row">
+            <div class="container col">
+            </div>
+            <div class="container col">
+            <!-- </div> <h2>Sök på Recept här!</h2> -->
        <form>
-           Receptnamn: <br>
-           <input type="text" name="recipe-name" id="input-search-recipe"><br>
-           <input type="button" name="search-recipe" id="search-recipe" value="sök">
+           <br>
+           <input type="text" placeholder="Sök på recept" name="recipe-name" id="input-search-recipe"><br>
+           <!-- <input type="button" name="search-recipe" id="search-recipe" value="sök"> -->
        </form> 
-       <div>
-           <h2>Välj kategori</h2>
+       </div>
+       <div class="col">
+           <!-- <h2>Välj kategori</h2> -->
+           <br>
            <select class="tag-checkbox" placeholder = "Välj kategori">
                 <option value="0" hidden>Välj kategori</option>
                <option class ="tag-option" type="checkbox" name="tag" value="frukost">Frukost</option>
@@ -22,17 +38,50 @@
                <option class ="tag-option" type="checkbox" name="tag" value="middag">Middag</option>
            </select>
        </div>
+       </div>
+       <hr>
+       <div class="showOnSingleRecipe">
+           <h6>Antal portioner</h6>
        <select id = "numberOfPortions">
             <option value = "2">2</option><option value = "4">4</option>
             <option value = "6">6</option><option value = "8">8</option>
             <option value = "10">10</option><option value = "12">12</option>
         </select>
-       <div class="result result-temp" id="div-result">Här kommer receptet</div>
+    </div>
+       <div class="result result-temp" id="div-result">
+           <div class="noMatchMessage"></div>
+           <div class="row">
+               <div class ="col colOne"><ul>hje</ul></div>
+               <div class ="col colTwo"><ul>hej</ul></div>
+               <div class ="col colThree"><ul>hej</ul></div>
+               <div class ="col colFour"><ul>hej</ul></div>
+           </div>
+           <!-- <div class="row rowTwo">
+                
+            </div>
+            <div class="row rowThree">
+             <div class=".col colcOne"></div>
+                <div class=".col colcTwo"></div>
+                <div class=".col colcThree"></div>
+                <div class=".col colcFour"></div>
+            </div>
+            <div class="row rowFour">
+                <div class=".col coldOne"></div>
+                <div class=".col coldTwo"></div>
+                <div class=".col coldThree"></div>
+                <div class=".col coldFour"></div>
+            </div> -->
+       </div>
+       <div class ="result" id="div-title"></div>
        <div class ="result" id="div-picture"></div>
        <div class ="result" id="div-description"></div>
        <div class ="result" id="div-ingredients"></div>
        <div class ="result" id="div-todo"></div>
        <div class ="result" id="div-nutrition"></div>
+       <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+          -->
     </body>
     <footer></footer>
 </html>

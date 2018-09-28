@@ -48,7 +48,8 @@ app.get(
       console.log(fullName)
       // filter ingredients so that only those with a Namn
       // matching start are left, then map from obj to obj.Namn
-      let result = ingredients.filter(
+      let result;
+      result = ingredients.filter(
         ingredient => ingredient.Namn.toLowerCase()==fullName
       ).map(
         ingredient => ingredient
