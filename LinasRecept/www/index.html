@@ -9,8 +9,7 @@
     <script src="main.js" defer></script>
 </head>
 <body>
-        <!-- <div class= "container container-fluid header"> -->
-            <header><div class="container header"> <h1>Bakealicious <small>-by Lina</small></h1></div></header>
+            <header><div class="container header"> <a class="headerLink" href="sok.html"><h1>Bakealicious <small>-by Lina</small></h1></a></div></header>
         
             <nav class="navbar navbar-expand-md bg-dark navbar-dark">
                 <ul class="navbar-nav">
@@ -18,31 +17,30 @@
                     <li class="nav-item active"><a class="nav-link" href="sok.html"> Sök på recept</a></li>
                 </ul>
             </nav>
-        <!-- </div> -->
         <div class="container container-fluid">
         <div class="row">
             <div class="container col">
                 <h1>Lägg till recept!</h1>
                 <form class="add-recipe">
-                Receptnamn: <br>
-                <input class="input" type="text" name="recipe-name" id="recipe-name"><input type="button" value ="Lägg till" id="recipe-name-button"> <br>
-                Beskrivning: <br>
-                <input class="input" type ="text" name="recipe-description" id = "recipe-description"><input type="button" value="Lägg till" id="recipe-description-button"><br>
-                Bildadress: <br>
-                <input class="input" type="text" name="recipe-picture" id="recipe-picture"><input type="button" value ="Lägg till" id="recipe-picture-button"> <br>
+                Receptnamn:
+                <input class="input form-control" type="text" name="recipe-name" id="recipe-name"><input type="button" class="btn" value ="Lägg till" id="recipe-name-button" > <br>
+                Beskrivning:
+                <input class="input form-control" type ="text" name="recipe-description" id = "recipe-description"><input type="button" class="btn" value="Lägg till" id="recipe-description-button"><br>
+                Bildadress:
+                <input class="input form-control" type="text" name="recipe-picture" id="recipe-picture"><input type="button" class="btn" value ="Lägg till" id="recipe-picture-button"> <br>
                 <!-- Taggar:<br>
                 <input type="text" name="recipe-tag" id="recipe-tag"><input type="button" value ="Lägg till" id="recipe-tag-button"> <br>
-           -->  Taggar: <br>
-                <select class="input" id="recipe-tag-select">
+           -->  Taggar:
+                <select class="input form-control" id="recipe-tag-select">
                     <option value="frukost">frukost</option>
                     <option value="lunch">lunch</option>
                     <option value="middag">middag</option>
                 </select>
-                <input type="button" value ="Lägg till" id="recipe-tag-button2"> <br> 
-                Ingredienser: <br>
-                <input class="input" type="text" name="ingredients" id= "ingredient"><br>
-                Utförande: <br>
-                <textarea class="input" type="text" name="toDo" id="toDo"></textarea><input type="button" value = "Lägg till" id="toDo-button">
+                <input type="button" class="btn" value ="Lägg till" id="recipe-tag-button2"> <br> 
+                Ingredienser:
+                <input class="input form-control" type="text" name="ingredients" id= "ingredient"><br>
+                Utförande:
+                <textarea class="input form-control" type="text" name="toDo" id="toDo"></textarea><input type="button" class="btn" value = "Lägg till" id="toDo-button">
             </form> 
             <div class="add-ingredient"> <h1></h1>
                 <ul id="choose-ingredient"></ul>
@@ -62,7 +60,7 @@
            <div id ="ingredienser"><ul></ul></div>
            <h6>Utförande</h6>
            <div id = "toDo-pre"><ul></ul></div>
-            <input type="submit" id="submitRecipe" text="submit" value= "slutför">
+            <input type="submit" class="btn" id="submitRecipe" text="submit" value= "slutför">
             </div>
         </div>
         </div>

@@ -38,7 +38,7 @@ $('#choose-ingredient').on('click', 'a', function () {
     $('.add-ingredient h1').text('Ange mängd');
     $('#choose-ingredient').empty();
     $('#choose-ingredient').append(ing);
-    $('#choose-ingredient').append('</br>Mängd: <input id="m"/> Enhet: <input id="e"/> En enhet i gram <input id="g"/> <input id="addIngredient" type="button" value = "skicka"/>');
+    $('#choose-ingredient').append('</br>Mängd: <input class="form-control" id="m"/> Enhet: <input class="form-control" id="e"/> En enhet i gram <input class="form-control" id="g"/> <input id="addIngredient" type="button" class="btn" value = "skicka"/>');
 
     let numErr = 0;
     let fieldErr = 0;
@@ -261,15 +261,13 @@ async function onStart(){
     showRecipes(lastRecipes);
     $('.result a').on('click', function(){        
         let clickedName = $(this).text();
-        console.log(clickedName);
         findSingleRecipe(clickedName, lastRecipes)
     });
 };
 
 onStart();
-
-
 $('.showOnSingleRecipe').hide();
+
 //Method to search for recipe
 let result;
 let matchedRecipes = [];
@@ -292,7 +290,6 @@ $('#input-search-recipe').keyup(async function () {
     
     $('.result a').on('click', function(){        
         let clickedName = $(this).text();
-        console.log(clickedName);
         findSingleRecipe(clickedName, recipes)
     });
 });
@@ -317,14 +314,12 @@ $('.tag-checkbox').on('change', async function () {
     
     $('.result a').on('click', function(){        
         let clickedName = $(this).text();
-        console.log(clickedName);
         findSingleRecipe(clickedName, recipes)
     });
 });
 
 function findSingleRecipe(clickedName, recipes){
     for(let r of recipes){
-        console.log(clickedName +" inne i findSIngleRecipe");
         if(r.name == clickedName){
             showSingleRecipe(r);
         }
@@ -336,7 +331,6 @@ function showSingleRecipe(recipe){
     $('.showOnSingleRecipe').show();
 
     tempIngredientList=recipe.ingredients;
-    //console.log(recipe)
     $('.tag-checkbox').val(0);
     emptySearchOutputField();
     $('#div-title').append('<h2>'+recipe.name+'</h2>');
@@ -345,7 +339,6 @@ function showSingleRecipe(recipe){
     $('#div-description').append(recipe.description);
     let x = recipe.ingredients.length;
     if(x>0){
-        console.log("jippi")
         for(let ing of recipe.ingredients){
             debugger
         $('#div-ingredients ul').append('<li>' + ing["name"] + " " + ing["quantity"] + " " + ing["unit"] + '</li>');}
@@ -389,13 +382,13 @@ function showRecipes(recipesToShow){
     for(rec of recipesToShow){
             if(tempvariabel%3==0){
                 console.log("col 1")
-                $('.colOne ul').append('<a href="#"><li>'+rec.name +'</li><li><img src="'+rec.picture+'" alt="Linastest"></img></li></a>');
+                $('.colOne').append('<a href="#"><div class="card"><img class= "card-img-top" src="'+rec.picture+'"alt="Linastest"><div class="card-body"><h5 class="card-title">'+rec.name+'</h5></div></div></a>');
                 tempvariabel++;
             }else if(tempvariabel%3==1){
-                $('.colTwo ul').append('<a href="#"><li>'+rec.name +'</li><li><img src="'+rec.picture+'" alt="Linastest"></img></li></a>');
+                $('.colTwo').append('<a href="#"><div class="card"><img class= "card-img-top" src="'+rec.picture+'"alt="Linastest"><div class="card-body"><h5 class="card-title">'+rec.name+'</h5></div></div></a>');
                 tempvariabel++;
             }else if(tempvariabel%3==2){
-                $('.colThree ul').append('<a href="#"><li>'+rec.name +'</li><li><img src="'+rec.picture+'" alt="Linastest"></img></li></a>');
+                $('.colThree').append('<a href="#"><div class="card"><img class= "card-img-top" src="'+rec.picture+'"alt="Linastest"><div class="card-body"><h5 class="card-title">'+rec.name+'</h5></div></div></a>');
                 tempvariabel++;
             }
         }
@@ -410,6 +403,19 @@ $('#numberOfPortions').on('change', function(){
     }
 });
 
+function emptySearchOutputField(){
+    $('.colOne').empty();
+    $('.colTwo').empty();
+    $('.colThree').empty();
+    $('#div-picture').empty();
+    $('#div-ingredients').empty();
+    $('#div-description').empty();
+    $('#div-nutrition').empty();
+    $('#div-todo').empty();
+    $('#div-title').empty();
+}
+
+
 // let logedIn =false;
 // $('.login').on('click', function(){
 //     console.log($('.uname').val())
@@ -420,17 +426,3 @@ $('#numberOfPortions').on('change', function(){
 //     }
 //     else{$('container1').append("fel användarnamn eller lösenord")};
 // });
-
-function emptySearchOutputField(){
-    $('.colOne ul').empty();
-    $('.colTwo ul').empty();
-    $('.colThree ul').empty();
-    $('.colFour ul').empty();
-    $('#div-picture').empty();
-    $('#div-ingredients').empty();
-    $('#div-description').empty();
-    $('#div-nutrition').empty();
-    $('#div-todo').empty();
-    $('#div-title').empty();
-}
-
