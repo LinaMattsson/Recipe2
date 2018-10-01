@@ -330,11 +330,11 @@ let tempIngredientList;
 function showSingleRecipe(recipe){
     $('.showOnSingleRecipe').show();
 
-    tempIngredientList=recipe.ingredients;
+    tempIngredientList = recipe.ingredients;
     $('.tag-checkbox').val(0);
     emptySearchOutputField();
     $('#div-title').append('<h2>'+recipe.name+'</h2>');
-    $('#div-picture').append('<img src= "'+recipe.picture +'"/>')
+    $('#div-picture').append('<img class="bigPicture" src= "'+recipe.picture +'"/>')
     $('#div-ingredients').append('<h3>Ingredienser:</h3><ul></ul>');
     $('#div-description').append(recipe.description);
     let x = recipe.ingredients.length;
