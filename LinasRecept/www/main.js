@@ -49,7 +49,7 @@ $('#choose-ingredient').on('click', 'a', function () {
         let g = $('#g').val();
 
         if (!m || !e || !g & fieldErr == 0) { //Posible to use regex here :)
-            $('#choose-ingredient').append("Alla rutor måste fyllas i. ");
+            $('#choose-ingredient').append('Alla rutor måste fyllas i!');
             fieldErr++;
         } else {
             if (!isNaN(m) & !isNaN(g) & isNaN(e)) {
@@ -73,7 +73,7 @@ $('#choose-ingredient').on('click', 'a', function () {
                 $('.add-ingredient h1').empty();
             }
             else if (numErr == 0) {
-                $('#choose-ingredient').append('"Mängd" och "i gram" får bara vara siffror, "enhet" ska vara i bokstäver');
+                $('#choose-ingredient').append('<p class="warning">"Mängd" och "i gram" får bara vara siffror, "enhet" ska vara i bokstäver</p>');
                 numErr++;
             }
         }
@@ -85,12 +85,27 @@ $('#choose-ingredient').on('click', 'a', function () {
 //Name
 let deleteName = 0;
 let recipeName = "";
-$('#recipe-name-button').on('click', function () {
+$('#recipe-name-button').on('click', async function () {
+    let recepies = await $.getJSON('/recipes.json').catch(console.err);
+    let nameNotTaken=true;
     let input = $('#recipe-name').val();
+    for(let r of recepies){
+        if(r.name.toLowerCase()==input.toLowerCase()){
+            nameNotTaken=false;
+            debugger
+        }
+    }
+    if(nameNotTaken){
     recipeName = input;
     showInPreview($('#rubrik ul'),$('#rubrik'), deleteName, input, true);
     $('#recipe-name').val("")
     deleteName++;
+    debugger
+    $('.name-message').text('');
+} else{
+    debugger
+    $('.name-message').text('Det finns redan ett recept med detta namn! Välj ett annat!');
+}
 })
 
 //Todo
@@ -241,10 +256,7 @@ $('#submitRecipe').on('click', async function () {
         recipeIngredients=[];
     }
     else {
-        
-        $('#submit-message').text('Alla fält måste vara ifyllda innan receptet sparas');
-        
-        console.log("alla fält måste vara i fyllda");
+        $('#submit-message').text('Alla fält måste vara ifyllda innan receptet sparas!');
     }
 });
 
@@ -263,7 +275,7 @@ async function onStart(){
     }
     showRecipes(lastRecipes);
     $('.result a').on('click', function(){        
-        let clickedName = $(this).text();
+        let clickedName = $(this).find('h5').text();
         findSingleRecipe(clickedName, lastRecipes)
     });
 };
@@ -289,10 +301,10 @@ $('#input-search-recipe').keyup(async function () {
         showRecipes(matchedRecipes);  
     }
     else { 
-        $('.colOne ul').text("Inget recept med det namnet hittades");} 
+        $('.colOne ul').text("Inget recept med det namnet hittades!");} 
     
     $('.result a').on('click', function(){        
-        let clickedName = $(this).text();
+        let clickedName = $(this).find('h5').text();
         findSingleRecipe(clickedName, recipes)
     });
 });
@@ -317,8 +329,6 @@ $('.tag-checkbox').on('change', async function () {
     
     $('.result a').on('click', function(){        
         let clickedName = $(this).find('h5').text();
-        
-        console.log(clickedName);
         findSingleRecipe(clickedName, recipes)
     });
 });
