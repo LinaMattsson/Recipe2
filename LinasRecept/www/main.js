@@ -125,7 +125,7 @@ $('#recipe-picture-button').on('click', function () {
     deletePicture++;
 })
 
-//Tags 2
+//Tags
 let deleteTags = 0;
 let recipeTags = [];
 $('#recipe-tag-button2').on('click', function () {
@@ -179,7 +179,7 @@ $('.pre-recipe').on('click', 'input', function () {
 
 //Method to get the right nutrition data and add it to the recipe.json
 $('#submitRecipe').on('click', async function () {
-    if (recipeIngredients.length > 0 && todoList.length > 0 && recipeName !== "" && recipePicture!=="" && recipeTags.length>0) {
+    if (recipeIngredients.length > 0 && todoList.length > 0 && recipeName !== "" && recipePicture!=="" && recipeTags.length>0 && description!="") {
         console.log('receptet ska sparas strax')
         let nutrition = 
             {
@@ -229,7 +229,7 @@ $('#submitRecipe').on('click', async function () {
             dataType: "json",
             headers: {"Content-type": "application/json"}
         })
-        $('.pre-recipe').find('div').empty().append('<ul></ul>');
+        $('.preview').empty().append('<ul></ul>');
         deleteName=0;
         deletePicture=0;
         deleteDescription=0;
@@ -241,7 +241,10 @@ $('#submitRecipe').on('click', async function () {
         recipeIngredients=[];
     }
     else {
-        console.log("alla fält måste vara i fyllda")
+        
+        $('#submit-message').text('Alla fält måste vara ifyllda innan receptet sparas');
+        
+        console.log("alla fält måste vara i fyllda");
     }
 });
 
@@ -309,11 +312,13 @@ $('.tag-checkbox').on('change', async function () {
     }
 
     else {
-        
-         $('.colOne ul').text("Inget recept med det namnet hittades");} 
+         $('.colOne ul').text("Inget recept med det namnet hittades");
+        } 
     
     $('.result a').on('click', function(){        
-        let clickedName = $(this).text();
+        let clickedName = $(this).find('h5').text();
+        
+        console.log(clickedName);
         findSingleRecipe(clickedName, recipes)
     });
 });
@@ -340,7 +345,7 @@ function showSingleRecipe(recipe){
     let x = recipe.ingredients.length;
     if(x>0){
         for(let ing of recipe.ingredients){
-            debugger
+           
         $('#div-ingredients ul').append('<li>' + ing["name"] + " " + ing["quantity"] + " " + ing["unit"] + '</li>');}
     }else{    
         $('#div-ingredients ul').append('<li>' + recipe.ingredients["name"] + " " + recipe.ingredients["quantity"] + " " + recipe.ingredients["unit"] + '</li>');}
@@ -382,13 +387,13 @@ function showRecipes(recipesToShow){
     for(rec of recipesToShow){
             if(tempvariabel%3==0){
                 console.log("col 1")
-                $('.colOne').append('<a href="#"><div class="card"><img class= "card-img-top" src="'+rec.picture+'"alt="Linastest"><div class="card-body"><h5 class="card-title">'+rec.name+'</h5></div></div></a>');
+                $('.colOne').append('<a href="#"><div class="card"><img class= "card-img-top" src="'+rec.picture+'"alt="Linastest"><div class="card-body"><h5 class="card-title">'+rec.name+'</h5>'+rec.description+'</div></div></a>');
                 tempvariabel++;
             }else if(tempvariabel%3==1){
-                $('.colTwo').append('<a href="#"><div class="card"><img class= "card-img-top" src="'+rec.picture+'"alt="Linastest"><div class="card-body"><h5 class="card-title">'+rec.name+'</h5></div></div></a>');
+                $('.colTwo').append('<a href="#"><div class="card"><img class= "card-img-top" src="'+rec.picture+'"alt="Linastest"><div class="card-body"><h5 class="card-title">'+rec.name+'</h5>'+rec.description+'</div></div></a>');
                 tempvariabel++;
             }else if(tempvariabel%3==2){
-                $('.colThree').append('<a href="#"><div class="card"><img class= "card-img-top" src="'+rec.picture+'"alt="Linastest"><div class="card-body"><h5 class="card-title">'+rec.name+'</h5></div></div></a>');
+                $('.colThree').append('<a href="#"><div class="card"><img class= "card-img-top" src="'+rec.picture+'"alt="Linastest"><div class="card-body"><h5 class="card-title">'+rec.name+'</h5>'+rec.description+'</div></div></a>');
                 tempvariabel++;
             }
         }

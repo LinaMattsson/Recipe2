@@ -24,6 +24,11 @@
                 <form class="add-recipe">
                 Receptnamn:
                 <input class="input form-control" type="text" name="recipe-name" id="recipe-name"><input type="button" class="btn" value ="Lägg till" id="recipe-name-button" > <br>
+                Ingredienser:
+                <input class="input form-control" type="text" name="ingredients" id= "ingredient"><br>
+                <div class="add-ingredient"> <h1></h1>
+                    <ul id="choose-ingredient"></ul>
+                </div>
                 Beskrivning:
                 <input class="input form-control" type ="text" name="recipe-description" id = "recipe-description"><input type="button" class="btn" value="Lägg till" id="recipe-description-button"><br>
                 Bildadress:
@@ -37,33 +42,35 @@
                     <option value="middag">middag</option>
                 </select>
                 <input type="button" class="btn" value ="Lägg till" id="recipe-tag-button2"> <br> 
-                Ingredienser:
-                <input class="input form-control" type="text" name="ingredients" id= "ingredient"><br>
+                
                 Utförande:
                 <textarea class="input form-control" type="text" name="toDo" id="toDo"></textarea><input type="button" class="btn" value = "Lägg till" id="toDo-button">
             </form> 
-            <div class="add-ingredient"> <h1></h1>
-                <ul id="choose-ingredient"></ul>
-            </div>
+            
         </div>
-        <div class  = "pre-recipe container col">
-           <h1>Receptgranskning</h1>
-           <h6>Receptnamn:</h6>
-           <div id ="rubrik"><ul></ul></div>
+<div class= "col">
+    <div class  = "pre-recipe container">
+        <h1>Receptgranskning</h1>
+        <h6>Receptnamn:</h6>
+        <div class ="preview" id ="rubrik"><ul></ul></div>
            <h6>Beskrivning</h6>
-           <div id = "pre-description"><ul></ul></div>
+        <div class ="preview" id = "pre-description"><ul></ul></div>
            <h6>Bildadress</h6>
-           <div id="pre-picture"><ul></ul></div>
+        <div class ="preview" id="pre-picture"><ul></ul></div>
            <h6>Taggar</h6>
-           <div id="pre-tags"><ul></ul></div>
+        <div class ="preview" id="pre-tags"><ul></ul></div>
            <h6>Ingredienser</h6>
-           <div id ="ingredienser"><ul></ul></div>
+        <div class ="preview" id ="ingredienser"><ul></ul></div>
            <h6>Utförande</h6>
-           <div id = "toDo-pre"><ul></ul></div>
-            <input type="submit" class="btn" id="submitRecipe" text="submit" value= "slutför">
-            </div>
-        </div>
-        </div>
+        <div class ="preview" id = "toDo-pre"><ul></ul></div>
+    </div>
+    <div>
+        <input type="button" class="btn" id="submitRecipe"  value= "Spara recept">
+        <div id="submit-message"></div>
+    </div>
+</div>
+</div>
+</div>
 
         <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
