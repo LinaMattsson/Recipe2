@@ -27,15 +27,72 @@ $('#ingredient').keyup(function () {
         $('.add-ingredient h1').empty();
     }
 });
-
-//This function makes it possible to choose witch ingredient from the list provided in the ingredient search and fill in quantity but not add it
+// testtesttest
+// $('#ingredient2').keyup(function () {
+//     $('select-ingredient2').empty();
+//     let value = $(this).val();
+//     if (value.length > 1) {
+//         $.getJSON('/autocomplete-ingredient-name/' + $('#ingredient2').val(), function (sIngredients) {
+//             console.log($('#ingredient2').val());
+//             //Instead of a list maybe a drop down would be nice
+//             if (sIngredients) {
+//                 console.log('finns ingredienser');
+//                 // $('#choose-ingredient').empty();
+//                 // $('.add-ingredient h1').text('Förslag på ingredienser');
+               
+//                 for (let ing of sIngredients) { 
+//                     console.log('det går frammåt');
+//                     $('#select-ingredient2').append('<option value="'+ing + '">'+ing+'</option>');
+//                     debugger
+//                     // $('#choose-ingredient').append('<li><a href="#">' + ing + '</a></li>');
+//                 }
+//             }
+//         })
+//     } else {
+//         console.log('För kort att söka på')
+//         // $('#choose-ingredient').empty();
+//         // $('.add-ingredient h1').empty();
+//     }
+// });
+let sIngredientsCopy=[];
+$('#ingredientInput').keyup(function () {
+    $('#ingredients').empty();
+   
+    let value = $(this).val();
+    if (value.length > 1) {
+        $.getJSON('/autocomplete-ingredient-name/' + $('#ingredientInput').val(), function (sIngredients) {
+            console.log($('#ingredientInput').val());
+            //Instead of a list maybe a drop down would be nice
+            if (sIngredients) {
+                console.log('finns ingredienser');
+                // $('#choose-ingredient').empty();
+                // $('.add-ingredient h1').text('Förslag på ingredienser');
+               sIngredientsCopy=sIngredients;
+                for (let ing of sIngredients) { 
+                    console.log('det går frammåt');
+                    $('#ingredients').append('><option value="'+ing + '">');
+                    
+                    // $('#choose-ingredient').append('<li><a href="#">' + ing + '</a></li>');
+                }
+            }
+        })
+    } else {
+        console.log('För kort att söka på')
+        // $('#choose-ingredient').empty();
+        // $('.add-ingredient h1').empty();
+    }
+});
 let recipeIngredients = [];
 let deleteIngredient = 0;
-$('#choose-ingredient').on('click', 'a', function () {
-    let ing = this.text;
+$('#choose-ingredient2').on('click', function () {
+    
+    let ing = $('#ingredientInput').val();
+    
+    if(sIngredientsCopy.includes(ing)){
+        $('.ingredientDoNotExcist').empty();
     console.log(ing);
-    $('#ingredient').val("");
-    $('.add-ingredient h1').text('Ange mängd');
+    $('#ingredients').val("");
+    $('.add-ingredient h5').text('Ange mängd');
     $('#choose-ingredient').empty();
     $('#choose-ingredient').append(ing);
     $('#choose-ingredient').append('</br>Mängd: <input class="form-control" id="m"/> Enhet: <input class="form-control" id="e"/> En enhet i gram <input class="form-control" id="g"/> <input id="addIngredient" type="button" class="btn" value = "skicka"/>');
@@ -52,6 +109,7 @@ $('#choose-ingredient').on('click', 'a', function () {
             $('#choose-ingredient').append('Alla rutor måste fyllas i!');
             fieldErr++;
         } else {
+            $('.add-ingredient h5').text("");
             if (!isNaN(m) & !isNaN(g) & isNaN(e)) {
                 let ingredientToAppend =
                 {
@@ -78,7 +136,62 @@ $('#choose-ingredient').on('click', 'a', function () {
             }
         }
     })
+}else{
+    $('.ingredientDoNotExcist').append('Ingrediensen finns inte, välj en från listan!')
+}
 })
+// slut på test
+
+//This function makes it possible to choose witch ingredient from the list provided in the ingredient search and fill in quantity but not add it
+
+// $('#choose-ingredient').on('click', 'a', function () {
+//     let ing = this.text;
+//     console.log(ing);
+//     $('#ingredient').val("");
+//     $('.add-ingredient h1').text('Ange mängd');
+//     $('#choose-ingredient').empty();
+//     $('#choose-ingredient').append(ing);
+//     $('#choose-ingredient').append('</br>Mängd: <input class="form-control" id="m"/> Enhet: <input class="form-control" id="e"/> En enhet i gram <input class="form-control" id="g"/> <input id="addIngredient" type="button" class="btn" value = "skicka"/>');
+
+//     let numErr = 0;
+//     let fieldErr = 0;
+//     $('#addIngredient').on('click', function () {
+//         console.log('tryckte på lägg till ingridient')
+//         let m = $('#m').val();
+//         let e = $('#e').val();
+//         let g = $('#g').val();
+
+//         if (!m || !e || !g & fieldErr == 0) { //Posible to use regex here :)
+//             $('#choose-ingredient').append('Alla rutor måste fyllas i!');
+//             fieldErr++;
+//         } else {
+//             if (!isNaN(m) & !isNaN(g) & isNaN(e)) {
+//                 let ingredientToAppend =
+//                 {
+//                     name: ing,
+//                     quantity: m,
+//                     unit: e,
+//                     inGrams: g
+//                 }
+
+//                 $('#ingredienser ul').append('<li>' + ing + " " + m + " " + e + '</li>');
+//                 if (deleteIngredient == 0) {
+//                     console.log('här')
+//                     $('#ingredienser').append('  <input type="button" value="Töm"></input>');
+//                     deleteIngredient++;
+//                 }
+//                 recipeIngredients.push(ingredientToAppend);
+//                 console.log(recipeIngredients)
+//                 $('#choose-ingredient').empty();
+//                 $('.add-ingredient h1').empty();
+//             }
+//             else if (numErr == 0) {
+//                 $('#choose-ingredient').append('<p class="warning">"Mängd" och "i gram" får bara vara siffror, "enhet" ska vara i bokstäver</p>');
+//                 numErr++;
+//             }
+//         }
+//     })
+// })
 
 
 //This five simular functions are posting to a preview
@@ -92,7 +205,7 @@ $('#recipe-name-button').on('click', async function () {
     for(let r of recepies){
         if(r.name.toLowerCase()==input.toLowerCase()){
             nameNotTaken=false;
-            debugger
+            
         }
     }
     if(nameNotTaken){
@@ -100,10 +213,10 @@ $('#recipe-name-button').on('click', async function () {
     showInPreview($('#rubrik ul'),$('#rubrik'), deleteName, input, true);
     $('#recipe-name').val("")
     deleteName++;
-    debugger
+    
     $('.name-message').text('');
 } else{
-    debugger
+    
     $('.name-message').text('Det finns redan ett recept med detta namn! Välj ett annat!');
 }
 })
@@ -367,14 +480,14 @@ function showSingleRecipe(recipe){
         $('#div-todo ul').append('<li>' + todo + '</li>');
     }
     $('#div-nutrition').append('<h3>Näringsinnehåll:</h3>')
-    $('#div-nutrition').append('<ul><li> Energi (kcal) ' + recipe.nutrition["Ener"] +
-    '</li><li> Protein (g) ' + recipe.nutrition["Prot"] +
-    '</li><li> Kolhydrater (g) ' + recipe.nutrition["Kolh"] +
-    '</li><li> Varav sockerarter (g) ' + recipe.nutrition["Mono/disack"] +
-    '</li><li> Mättade fetter (g) ' + recipe.nutrition["Mfet"] +
-    '</li><li> Enkelomättade fetter (g) ' + recipe.nutrition["Mone"] +
-    '</li><li> Fleromättade fetter (g) ' + recipe.nutrition["Pole"] +
-    '</li><li> Salter (g) ' + recipe.nutrition["NaCl"] +'</li></ul>');
+    $('#div-nutrition').append('<ul><li> Energi (kcal) ' + Number(recipe.nutrition["Ener"]).toFixed(2) +
+    '</li><li> Protein (g) ' + Number(recipe.nutrition["Prot"]).toFixed(2) +
+    '</li><li> Kolhydrater (g) ' + Number(recipe.nutrition["Kolh"]).toFixed(2) +
+    '</li><li> Varav sockerarter (g) ' + Number(recipe.nutrition["Mono/disack"]).toFixed(2) +
+    '</li><li> Mättade fetter (g) ' + Number(recipe.nutrition["Mfet"]).toFixed(2) +
+    '</li><li> Enkelomättade fetter (g) ' + Number(recipe.nutrition["Mone"]).toFixed(2) +
+    '</li><li> Fleromättade fetter (g) ' + Number(recipe.nutrition["Pole"]).toFixed(2) +
+    '</li><li> Salter (g) ' + Number(recipe.nutrition["NaCl"]).toFixed(2) +'</li></ul>');
 }
 
 // saves matched recepies when searching

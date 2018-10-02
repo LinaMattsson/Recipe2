@@ -26,10 +26,27 @@
                 <input class="input form-control" type="text" name="recipe-name" id="recipe-name"><input type="button" class="btn" value ="Lägg till" id="recipe-name-button" > <br>
                 <div class="name-message warning"></div>
                 Ingredienser:
-                <input class="input form-control" type="text" name="ingredients" id= "ingredient"><br>
-                <div class="add-ingredient"> <h1></h1>
-                    <ul id="choose-ingredient"></ul>
-                </div>
+                <!-- <input class="input form-control" type="text" name="ingredients" id= "ingredient"><br> -->
+                
+                <!-- <div class="dropdown-content">
+                        <input list="select-ingredient2" name="ingredientList" id="ingredient2">
+                        <select id="select-ingredient2" placeholder="Sök på ">
+                            <option value=""></option>
+                        </select>
+                  </div> -->
+                  <input list="ingredients" class= "input form-control" name="test" id="ingredientInput">
+  <datalist id="ingredients">
+    <!-- <option value="Internet Explorer">
+    <option value="Firefox">
+    <option value="Chrome">
+    <option value="Opera">
+    <option value="Safari"> -->
+  </datalist>
+  <input type="button" id ="choose-ingredient2" class ="btn" value="Välj">
+  <div class="warning ingredientDoNotExcist"></div>
+  <div class="add-ingredient"> <h5></h5>
+    <ul id="choose-ingredient"></ul>
+</div>
                 Beskrivning:
                 <input class="input form-control" type ="text" name="recipe-description" id = "recipe-description"><input type="button" class="btn" value="Lägg till" id="recipe-description-button"><br>
                 Bildadress:
