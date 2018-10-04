@@ -12,6 +12,16 @@ const fs = require('fs');
 const ingredients = require("./livsmedelsdata.json");
 const recipePath = "./recipes.json";
 const recipesJson = require(recipePath);
+const users = require("./users.json")
+
+// app.get('/login/:username', (req,res)=>{
+//   let username = req.params.username;
+//   debugger
+//   let testuser = users.filter(
+//     user=>user.username==username)
+//     .map(user => user.password);
+//     res.json(testuser);
+// });
 
 app.get(
     '/autocomplete-ingredient-name/:startOfName',
@@ -62,12 +72,45 @@ app.get(
 
 app.post('/add-recipe', (req, res) => {
   const recipe = req.body;
-  console.log("rad 60",recipe);
+  console.log("rad 65",recipe);
   recipesJson.push(recipe);
   fs.writeFile(recipePath, JSON.stringify(recipesJson), function(err){
     if(err){console.log(err)}
   });
-  res.json('sparat');
+  res.json('sparat lina');
+});
+
+// app.post('/login', (req,res)=> {
+//   console.log("backend")
+//   const userLogging = req.body;
+//   console.log(userLogging)
+//   let logginginUser = users.filter(user => user.username==userLogging.username && user.password==userLogging.password)
+//   .map(user => user.username)
+//   if(logginginUser){
+//     debugger
+//     res.json(success)
+//   }else{res.json(error)}
+// });
+// app.get('/login', (req,res)=> {
+//   const userLogging = req.body;
+//   console.log(userLogging)
+// console.log(userLogging.username)
+//   let logginginUser = users.filter(user => user.username==userLogging.username && user.password==userLogging.password)
+//   .map(user => user.username);
+//   debugger
+//   res.json("hello");
+// })
+
+app.post('/login', (req,res)=>{
+  const userName=req.body.username;
+  const passWord=req.body.password;
+  let logginginUser = users.filter(user => user.username==userName && user.password==passWord).map(user => user.username);
+  console.log(req.body.username)
+  console.log(logginginUser)
+  if(logginginUser.length>0){
+    res.json(true)
+  }else{res.json(false)}
+  // res.json("lina är bäst");
 })
 
 app.get('/recipes.json', (req,res) => {

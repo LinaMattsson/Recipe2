@@ -1,13 +1,86 @@
-// let pin=false;
-// let getPin;
-// $('.admin').on('click', function(){
-//     while(getPin != "Lina"){
-//    getPin = prompt("Mata in lösenord")
-//    }
-// });
+// This funktion sorts out the ingredients that starts with the letters provided in the ingredients-search input
+function showLogin(){
+    if($('.modal-login').hasClass("hide")){
+    $('.modal-login').toggleClass("hide");
+}}
+showLogin();
+
+$('.login-btn').on('click', function(){
+    let username=$('#username').val();
+    let password=$('#password').val();
+    
+    let user={username: username,
+        password: password
+    };
+    $.ajax({
+        type : "POST",
+        url: "/login",
+        data: JSON.stringify(user),
+        processData: false,
+        dataType: "json",
+        headers: {"Content-type": "application/json"},
+        success: function(data){
+            console.log(data)
+            if(data){
+                $('.modal-login').toggleClass("hide");
+            }
+        }
+    })
+});
+// $.getJSON('/login', {username1:username, password1: password}, function(correctLogin){
+//     console.log(correctLogin)
+// // })
+    // $.postJSON('/post/login', {username: username, password: password})
+    // // .complete(function () {
+    // //     // Optional - fires when the operation completes, regardless of status
+    // // })
+    // .success(function (message) {
+    //     console.log(message)
+    //     // Optional - fires when operation completes successfully
+    // })
+    // .error(function () {
+    //     console.log("verkar inte funka")
+    //     // Optional - fires when operation completes with error
+    // });
+    // axios.post('http://localhost:8000/login', {username,password}).then(response => console.log(response));
+    // $.ajax({
+    //     type : "POST",
+    //     url: "/login",
+    //     data: JSON.stringify(user),
+    //     processData: false,
+    //     dataType: "json",
+    //     headers: {"Content-type": "application/json",
+    //     success: function(){
+    //         if(!$('.modal-login').hasClass("hide")){
+    //            debugger
+    //             $('.modal-login').toggleClass("hide")}},
+    //     error: function(){
+    //         console.log(" errorThrown" );
+    //     }}
+    // });
+
+    // $.getJSON('/login/'+ $('#username').val(), function(testPassword){
+    //     if(testPassword==password && !$('.modal-login').hasClass("hide")){
+    //         debugger
+    //         $('.modal-login').toggleClass("hide");
+    //     }
+    // })
+    // $.ajax({
+    //     url: 'users.php',
+    //     dataType: 'json',
+    //     type: 'post',
+    //     contentType: 'application/json',
+    //     data: JSON.stringify( { "first-name": $('#first-name').val(), "last-name": $('#last-name').val() } ),
+    //     processData: false,
+        
+   
+   
+    // if(minTestVariabel){
+    //     console.log(minTestVariabel)
+    //     console.log("wiho")
+    // }    
 
 let ingredientsToShow;
-// This funktion sorts out the ingredients that starts with the letters provided in the ingredients-search input
 $('#ingredient').keyup(function () {
     let value = $(this).val();
     if (value.length > 1) {
@@ -27,33 +100,7 @@ $('#ingredient').keyup(function () {
         $('.add-ingredient h1').empty();
     }
 });
-// testtesttest
-// $('#ingredient2').keyup(function () {
-//     $('select-ingredient2').empty();
-//     let value = $(this).val();
-//     if (value.length > 1) {
-//         $.getJSON('/autocomplete-ingredient-name/' + $('#ingredient2').val(), function (sIngredients) {
-//             console.log($('#ingredient2').val());
-//             //Instead of a list maybe a drop down would be nice
-//             if (sIngredients) {
-//                 console.log('finns ingredienser');
-//                 // $('#choose-ingredient').empty();
-//                 // $('.add-ingredient h1').text('Förslag på ingredienser');
-               
-//                 for (let ing of sIngredients) { 
-//                     console.log('det går frammåt');
-//                     $('#select-ingredient2').append('<option value="'+ing + '">'+ing+'</option>');
-//                     debugger
-//                     // $('#choose-ingredient').append('<li><a href="#">' + ing + '</a></li>');
-//                 }
-//             }
-//         })
-//     } else {
-//         console.log('För kort att söka på')
-//         // $('#choose-ingredient').empty();
-//         // $('.add-ingredient h1').empty();
-//     }
-// });
+
 let sIngredientsCopy=[];
 $('#ingredientInput').keyup(function () {
     $('#ingredients').empty();
@@ -142,56 +189,6 @@ $('#choose-ingredient2').on('click', function () {
 })
 // slut på test
 
-//This function makes it possible to choose witch ingredient from the list provided in the ingredient search and fill in quantity but not add it
-
-// $('#choose-ingredient').on('click', 'a', function () {
-//     let ing = this.text;
-//     console.log(ing);
-//     $('#ingredient').val("");
-//     $('.add-ingredient h1').text('Ange mängd');
-//     $('#choose-ingredient').empty();
-//     $('#choose-ingredient').append(ing);
-//     $('#choose-ingredient').append('</br>Mängd: <input class="form-control" id="m"/> Enhet: <input class="form-control" id="e"/> En enhet i gram <input class="form-control" id="g"/> <input id="addIngredient" type="button" class="btn" value = "skicka"/>');
-
-//     let numErr = 0;
-//     let fieldErr = 0;
-//     $('#addIngredient').on('click', function () {
-//         console.log('tryckte på lägg till ingridient')
-//         let m = $('#m').val();
-//         let e = $('#e').val();
-//         let g = $('#g').val();
-
-//         if (!m || !e || !g & fieldErr == 0) { //Posible to use regex here :)
-//             $('#choose-ingredient').append('Alla rutor måste fyllas i!');
-//             fieldErr++;
-//         } else {
-//             if (!isNaN(m) & !isNaN(g) & isNaN(e)) {
-//                 let ingredientToAppend =
-//                 {
-//                     name: ing,
-//                     quantity: m,
-//                     unit: e,
-//                     inGrams: g
-//                 }
-
-//                 $('#ingredienser ul').append('<li>' + ing + " " + m + " " + e + '</li>');
-//                 if (deleteIngredient == 0) {
-//                     console.log('här')
-//                     $('#ingredienser').append('  <input type="button" value="Töm"></input>');
-//                     deleteIngredient++;
-//                 }
-//                 recipeIngredients.push(ingredientToAppend);
-//                 console.log(recipeIngredients)
-//                 $('#choose-ingredient').empty();
-//                 $('.add-ingredient h1').empty();
-//             }
-//             else if (numErr == 0) {
-//                 $('#choose-ingredient').append('<p class="warning">"Mängd" och "i gram" får bara vara siffror, "enhet" ska vara i bokstäver</p>');
-//                 numErr++;
-//             }
-//         }
-//     })
-// })
 
 
 //This five simular functions are posting to a preview
@@ -381,7 +378,6 @@ let lastRecipes;
 async function loadRecipesOnStart(){
  RecipesOnStart = await $.getJSON('/recipes.json').catch(console.err);
  let numberOfRecipes = RecipesOnStart.length;
- console.log("välkommen")
  let lastRecipes=[];
     for(let index=numberOfRecipes-1; index>numberOfRecipes-7; index--){
         lastRecipes.push(RecipesOnStart[index])
@@ -590,3 +586,81 @@ function emptySearchOutputField(){
 //     }
 //     else{$('container1').append("fel användarnamn eller lösenord")};
 // });
+// testtesttest
+// $('#ingredient2').keyup(function () {
+//     $('select-ingredient2').empty();
+//     let value = $(this).val();
+//     if (value.length > 1) {
+//         $.getJSON('/autocomplete-ingredient-name/' + $('#ingredient2').val(), function (sIngredients) {
+//             console.log($('#ingredient2').val());
+//             //Instead of a list maybe a drop down would be nice
+//             if (sIngredients) {
+//                 console.log('finns ingredienser');
+//                 // $('#choose-ingredient').empty();
+//                 // $('.add-ingredient h1').text('Förslag på ingredienser');
+               
+//                 for (let ing of sIngredients) { 
+//                     console.log('det går frammåt');
+//                     $('#select-ingredient2').append('<option value="'+ing + '">'+ing+'</option>');
+//                     debugger
+//                     // $('#choose-ingredient').append('<li><a href="#">' + ing + '</a></li>');
+//                 }
+//             }
+//         })
+//     } else {
+//         console.log('För kort att söka på')
+//         // $('#choose-ingredient').empty();
+//         // $('.add-ingredient h1').empty();
+//     }
+// });
+
+//This function makes it possible to choose witch ingredient from the list provided in the ingredient search and fill in quantity but not add it
+
+// $('#choose-ingredient').on('click', 'a', function () {
+//     let ing = this.text;
+//     console.log(ing);
+//     $('#ingredient').val("");
+//     $('.add-ingredient h1').text('Ange mängd');
+//     $('#choose-ingredient').empty();
+//     $('#choose-ingredient').append(ing);
+//     $('#choose-ingredient').append('</br>Mängd: <input class="form-control" id="m"/> Enhet: <input class="form-control" id="e"/> En enhet i gram <input class="form-control" id="g"/> <input id="addIngredient" type="button" class="btn" value = "skicka"/>');
+
+//     let numErr = 0;
+//     let fieldErr = 0;
+//     $('#addIngredient').on('click', function () {
+//         console.log('tryckte på lägg till ingridient')
+//         let m = $('#m').val();
+//         let e = $('#e').val();
+//         let g = $('#g').val();
+
+//         if (!m || !e || !g & fieldErr == 0) { //Posible to use regex here :)
+//             $('#choose-ingredient').append('Alla rutor måste fyllas i!');
+//             fieldErr++;
+//         } else {
+//             if (!isNaN(m) & !isNaN(g) & isNaN(e)) {
+//                 let ingredientToAppend =
+//                 {
+//                     name: ing,
+//                     quantity: m,
+//                     unit: e,
+//                     inGrams: g
+//                 }
+
+//                 $('#ingredienser ul').append('<li>' + ing + " " + m + " " + e + '</li>');
+//                 if (deleteIngredient == 0) {
+//                     console.log('här')
+//                     $('#ingredienser').append('  <input type="button" value="Töm"></input>');
+//                     deleteIngredient++;
+//                 }
+//                 recipeIngredients.push(ingredientToAppend);
+//                 console.log(recipeIngredients)
+//                 $('#choose-ingredient').empty();
+//                 $('.add-ingredient h1').empty();
+//             }
+//             else if (numErr == 0) {
+//                 $('#choose-ingredient').append('<p class="warning">"Mängd" och "i gram" får bara vara siffror, "enhet" ska vara i bokstäver</p>');
+//                 numErr++;
+//             }
+//         }
+//     })
+// })
