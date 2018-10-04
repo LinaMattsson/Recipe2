@@ -307,7 +307,7 @@ $('.pre-recipe').on('click', 'input', function () {
 
 //Method to get the right nutrition data and add it to the recipe.json
 $('#submitRecipe').on('click', async function () {
-    if (recipeIngredients.length > 0 && todoList.length > 0 && recipeName !== "" && recipePicture!=="" && recipeTags.length>0 && description!="") {
+    if (recipeIngredients.length > 0 && todoList.length > 0 && recipeName !== "" && recipePicture!=="" && recipeTags.length>0 && description!=="") {
         console.log('receptet ska sparas strax')
         let nutrition = 
             {
@@ -378,7 +378,7 @@ $('#submitRecipe').on('click', async function () {
 
 //ALLT NEDAN HÖR TILL SOK.HTML!!!
 let lastRecipes;
-async function onStart(){
+async function loadRecipesOnStart(){
  RecipesOnStart = await $.getJSON('/recipes.json').catch(console.err);
  let numberOfRecipes = RecipesOnStart.length;
  console.log("välkommen")
@@ -393,7 +393,7 @@ async function onStart(){
     });
 };
 
-onStart();
+loadRecipesOnStart();
 $('.showOnSingleRecipe').hide();
 
 //Method to search for recipe
@@ -409,12 +409,46 @@ $('#input-search-recipe').keyup(async function () {
     let searchinput = $('#input-search-recipe').val().toLowerCase();
     let recipes = await $.getJSON('/recipes.json').catch(console.err);
     
-    saveMatchedRecipesInArray(recipes, searchinput, false);
+    saveMatchedRecipesInArray(recipes, searchinput, "recipename");
     if(matchedRecipes.length>0 && searchinput!=""){
         showRecipes(matchedRecipes);  
     }
     else { 
-        $('.colOne ul').text("Inget recept med det namnet hittades!");} 
+        alert("Inget recept hittat");
+        loadRecipesOnStart();
+        $('#input-search-recipe').val("");
+        // $('.colOne ul').append("Inget recept med det namnet hittades!");
+        // console.log("inget recept hittat")
+    } 
+    
+    $('.result a').on('click', function(){        
+        let clickedName = $(this).find('h5').text();
+        findSingleRecipe(clickedName, recipes)
+    });
+});
+
+//Method to search in description of recipe
+$('#input-search-description').keyup(async function () {
+    $('.showOnSingleRecipe').hide();
+    matchedRecipes = [];
+    emptySearchOutputField();
+    
+    $('#numberOfPortions').val(2);
+
+    let searchinput = $('#input-search-description').val().toLowerCase();
+    let recipes = await $.getJSON('/recipes.json').catch(console.err);
+    
+    saveMatchedRecipesInArray(recipes, searchinput, "description");
+    if(matchedRecipes.length>0 && searchinput!=""){
+        showRecipes(matchedRecipes);  
+    }
+    else { 
+        alert("Inget recept hittat");
+        loadRecipesOnStart();
+        $('#input-search-recipe').val("");
+        // $('.colOne ul').append("Inget recept med det namnet hittades!");
+        // console.log("inget recept hittat")
+    } 
     
     $('.result a').on('click', function(){        
         let clickedName = $(this).find('h5').text();
@@ -431,7 +465,7 @@ $('.tag-checkbox').on('change', async function () {
     let taginput = $('.tag-checkbox').val().toLowerCase();
     console.log(taginput);
     let recipes = await $.getJSON('/recipes.json').catch(console.err);
-    saveMatchedRecipesInArray(recipes, taginput, true);
+    saveMatchedRecipesInArray(recipes, taginput, "tag");
     if(matchedRecipes.length>0){
         showRecipes(matchedRecipes);  
     }
@@ -491,13 +525,15 @@ function showSingleRecipe(recipe){
 }
 
 // saves matched recepies when searching
-function saveMatchedRecipesInArray(recipes, searchinput, isTag){
+function saveMatchedRecipesInArray(recipes, searchinput, type){
     for (let r of recipes) {
-        if((isTag && r.tags.includes(searchinput)) || (!isTag && r.name.toLowerCase().startsWith(searchinput))){//funkar antagligen inte
+        debugger
+        if((type=="tag" && r.tags.includes(searchinput)) ||(type=="description" && r.description.toLowerCase().includes(searchinput)) || (type=="recipename" && r.name.toLowerCase().startsWith(searchinput))){//funkar antagligen inte
             result = r;
             recipeInList = {
                 name: r.name,
-                picture: r.picture
+                picture: r.picture,
+                description: r.description
             };
             matchedRecipes.push(recipeInList);
         };
