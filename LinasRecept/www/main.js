@@ -294,7 +294,7 @@ $('#submitRecipe').on('click', async function () {
 
 
 
-//ALLT NEDAN HÖR TILL SOK.HTML!!!
+//Methods to the SOK.HTML!!!
 let lastRecipes;
 async function loadRecipesOnStart(){
  RecipesOnStart = await $.getJSON('/recipes.json').catch(console.err);
@@ -414,9 +414,10 @@ function showSingleRecipe(recipe){
     let x = recipe.ingredients.length;
     if(x>0){
         for(let ing of recipe.ingredients){
-           
-        $('#div-ingredients ul').append('<li>' + ing["name"] + " " + ing["quantity"] + " " + ing["unit"] + '</li>');}
-    }else{    
+        let quantity=ing["quantity"].replace(".",","); 
+        $('#div-ingredients ul').append('<li>' + ing["name"] + " " + quantity + " " + ing["unit"] + '</li>');}
+    }else{ 
+        let quantity = recipe.ingredients["quantity"].replace(".",",");   
         $('#div-ingredients ul').append('<li>' + recipe.ingredients["name"] + " " + recipe.ingredients["quantity"] + " " + recipe.ingredients["unit"] + '</li>');}
 
     $('#div-todo').append('<h3>Gör så här:</h3>')
@@ -426,14 +427,14 @@ function showSingleRecipe(recipe){
         $('#div-todo ul').append('<li>' + todo + '</li>');
     }
     $('#div-nutrition').append('<h3>Näringsinnehåll:</h3>')
-    $('#div-nutrition').append('<ul><li> Energi (kcal) ' + Number(recipe.nutrition["Ener"]).toFixed(2) +
-    '</li><li> Protein (g) ' + Number(recipe.nutrition["Prot"]).toFixed(2) +
-    '</li><li> Kolhydrater (g) ' + Number(recipe.nutrition["Kolh"]).toFixed(2) +
-    '</li><li> Varav sockerarter (g) ' + Number(recipe.nutrition["Mono/disack"]).toFixed(2) +
-    '</li><li> Mättade fetter (g) ' + Number(recipe.nutrition["Mfet"]).toFixed(2) +
-    '</li><li> Enkelomättade fetter (g) ' + Number(recipe.nutrition["Mone"]).toFixed(2) +
-    '</li><li> Fleromättade fetter (g) ' + Number(recipe.nutrition["Pole"]).toFixed(2) +
-    '</li><li> Salter (g) ' + Number(recipe.nutrition["NaCl"]).toFixed(2) +'</li></ul>');
+    $('#div-nutrition').append('<ul><li> Energi (kcal) ' + Number(recipe.nutrition["Ener"]).toFixed(2).replace(".",",") +
+    '</li><li> Protein (g) ' + Number(recipe.nutrition["Prot"]).toFixed(2).replace(".",",") +
+    '</li><li> Kolhydrater (g) ' + Number(recipe.nutrition["Kolh"]).toFixed(2).replace(".",",") +
+    '</li><li> Varav sockerarter (g) ' + Number(recipe.nutrition["Mono/disack"]).toFixed(2).replace(".",",") +
+    '</li><li> Mättade fetter (g) ' + Number(recipe.nutrition["Mfet"]).toFixed(2).replace(".",",") +
+    '</li><li> Enkelomättade fetter (g) ' + Number(recipe.nutrition["Mone"]).toFixed(2).replace(".",",") +
+    '</li><li> Fleromättade fetter (g) ' + Number(recipe.nutrition["Pole"]).toFixed(2).replace(".",",") +
+    '</li><li> Salter (g) ' + Number(recipe.nutrition["NaCl"]).toFixed(2).replace(".",",") +'</li></ul>');
 }
 
 // saves matched recepies when searching
@@ -473,7 +474,8 @@ $('#numberOfPortions').on('change', function(){
     $('#div-ingredients').empty();
     $('#div-ingredients').append('<h3>Ingredienser:</h3><ul></ul>');
     for (let i of tempIngredientList) {
-        $('#div-ingredients ul').append('<li>'+i.name + " " +i.quantity*$(this).val()/2 + i.unit+'</li>');
+        let quantity = i.quantity*$(this).val()/2;
+        $('#div-ingredients ul').append('<li>'+i.name + " " +quantity.toString().replace(".",",") + i.unit+'</li>');
     }
 });
 
