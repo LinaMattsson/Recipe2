@@ -1,4 +1,4 @@
-// This funktion sorts out the ingredients that starts with the letters provided in the ingredients-search input
+//Login
 function showLogin(){
     if($('.modal-login').hasClass("hide")){
     $('.modal-login').toggleClass("hide");
@@ -8,7 +8,6 @@ showLogin();
 $('.login-btn').on('click', function(){
     let username=$('#username').val();
     let password=$('#password').val();
-    
     let user={username: username,
         password: password
     };
@@ -20,72 +19,19 @@ $('.login-btn').on('click', function(){
         dataType: "json",
         headers: {"Content-type": "application/json"},
         success: function(data){
-            console.log(data)
             if(data){
                 $('.modal-login').toggleClass("hide");
             }
         }
     })
 });
-// $.getJSON('/login', {username1:username, password1: password}, function(correctLogin){
-//     console.log(correctLogin)
-// // })
-    // $.postJSON('/post/login', {username: username, password: password})
-    // // .complete(function () {
-    // //     // Optional - fires when the operation completes, regardless of status
-    // // })
-    // .success(function (message) {
-    //     console.log(message)
-    //     // Optional - fires when operation completes successfully
-    // })
-    // .error(function () {
-    //     console.log("verkar inte funka")
-    //     // Optional - fires when operation completes with error
-    // });
-    // axios.post('http://localhost:8000/login', {username,password}).then(response => console.log(response));
-    // $.ajax({
-    //     type : "POST",
-    //     url: "/login",
-    //     data: JSON.stringify(user),
-    //     processData: false,
-    //     dataType: "json",
-    //     headers: {"Content-type": "application/json",
-    //     success: function(){
-    //         if(!$('.modal-login').hasClass("hide")){
-    //            debugger
-    //             $('.modal-login').toggleClass("hide")}},
-    //     error: function(){
-    //         console.log(" errorThrown" );
-    //     }}
-    // });
 
-    // $.getJSON('/login/'+ $('#username').val(), function(testPassword){
-    //     if(testPassword==password && !$('.modal-login').hasClass("hide")){
-    //         debugger
-    //         $('.modal-login').toggleClass("hide");
-    //     }
-    // })
-    // $.ajax({
-    //     url: 'users.php',
-    //     dataType: 'json',
-    //     type: 'post',
-    //     contentType: 'application/json',
-    //     data: JSON.stringify( { "first-name": $('#first-name').val(), "last-name": $('#last-name').val() } ),
-    //     processData: false,
-        
-   
-   
-    // if(minTestVariabel){
-    //     console.log(minTestVariabel)
-    //     console.log("wiho")
-    // }    
 
 let ingredientsToShow;
 $('#ingredient').keyup(function () {
     let value = $(this).val();
     if (value.length > 1) {
         $.getJSON('/autocomplete-ingredient-name/' + $('#ingredient').val(), function (sIngredients) {
-            //Instead of a list maybe a drop down would be nice
             if (sIngredients) {
                 $('#choose-ingredient').empty();
                 $('.add-ingredient h1').text('Förslag på ingredienser');
@@ -95,12 +41,12 @@ $('#ingredient').keyup(function () {
             }
         })
     } else {
-        console.log('För kort att söka på')
         $('#choose-ingredient').empty();
         $('.add-ingredient h1').empty();
     }
 });
 
+//Index.html add recipes
 let sIngredientsCopy=[];
 $('#ingredientInput').keyup(function () {
     $('#ingredients').empty();
@@ -108,36 +54,22 @@ $('#ingredientInput').keyup(function () {
     let value = $(this).val();
     if (value.length > 1) {
         $.getJSON('/autocomplete-ingredient-name/' + $('#ingredientInput').val(), function (sIngredients) {
-            console.log($('#ingredientInput').val());
-            //Instead of a list maybe a drop down would be nice
             if (sIngredients) {
-                console.log('finns ingredienser');
-                // $('#choose-ingredient').empty();
-                // $('.add-ingredient h1').text('Förslag på ingredienser');
                sIngredientsCopy=sIngredients;
                 for (let ing of sIngredients) { 
-                    console.log('det går frammåt');
                     $('#ingredients').append('><option value="'+ing + '">');
-                    
-                    // $('#choose-ingredient').append('<li><a href="#">' + ing + '</a></li>');
                 }
             }
         })
-    } else {
-        console.log('För kort att söka på')
-        // $('#choose-ingredient').empty();
-        // $('.add-ingredient h1').empty();
-    }
+    } 
 });
 let recipeIngredients = [];
 let deleteIngredient = 0;
 $('#choose-ingredient2').on('click', function () {
-    
     let ing = $('#ingredientInput').val();
     
     if(sIngredientsCopy.includes(ing)){
-        $('.ingredientDoNotExcist').empty();
-    console.log(ing);
+    $('.ingredientDoNotExcist').empty();
     $('#ingredients').val("");
     $('.add-ingredient h5').text('Ange mängd');
     $('#choose-ingredient').empty();
@@ -147,12 +79,11 @@ $('#choose-ingredient2').on('click', function () {
     let numErr = 0;
     let fieldErr = 0;
     $('#addIngredient').on('click', function () {
-        console.log('tryckte på lägg till ingridient')
         let m = $('#m').val();
         let e = $('#e').val();
         let g = $('#g').val();
 
-        if (!m || !e || !g & fieldErr == 0) { //Posible to use regex here :)
+        if (!m || !e || !g & fieldErr == 0) { 
             $('#choose-ingredient').append('Alla rutor måste fyllas i!');
             fieldErr++;
         } else {
@@ -168,12 +99,10 @@ $('#choose-ingredient2').on('click', function () {
 
                 $('#ingredienser ul').append('<li>' + ing + " " + m + " " + e + '</li>');
                 if (deleteIngredient == 0) {
-                    console.log('här')
                     $('#ingredienser').append('  <input type="button" value="Töm"></input>');
                     deleteIngredient++;
                 }
                 recipeIngredients.push(ingredientToAppend);
-                console.log(recipeIngredients)
                 $('#choose-ingredient').empty();
                 $('.add-ingredient h1').empty();
             }
@@ -186,10 +115,7 @@ $('#choose-ingredient2').on('click', function () {
 }else{
     $('.ingredientDoNotExcist').append('Ingrediensen finns inte, välj en från listan!')
 }
-})
-// slut på test
-
-
+});
 
 //This five simular functions are posting to a preview
 //Name
@@ -210,10 +136,8 @@ $('#recipe-name-button').on('click', async function () {
     showInPreview($('#rubrik ul'),$('#rubrik'), deleteName, input, true);
     $('#recipe-name').val("")
     deleteName++;
-    
     $('.name-message').text('');
 } else{
-    
     $('.name-message').text('Det finns redan ett recept med detta namn! Välj ett annat!');
 }
 })
@@ -230,7 +154,7 @@ $('#toDo-button').on('click', function () {
 })
 //Description
 let deleteDescription = 0;
-let description;
+let description="";
 $('#recipe-description-button').on('click', function () {
     let input = $('#recipe-description').val();
     description = input;
@@ -241,7 +165,7 @@ $('#recipe-description-button').on('click', function () {
 
 //Picture
 let deletePicture = 0;
-let recipePicture;
+let recipePicture="";
 $('#recipe-picture-button').on('click', function () {
     let input = $('#recipe-picture').val();
     recipePicture = input;
@@ -265,10 +189,8 @@ function showInPreview(targetUl, target, deleteCount, input, oneOnly){
     if(oneOnly){
         targetUl.empty();
     }   
-    console.log(input);
     targetUl.append('<li>' + input + '</li>');
     if (deleteCount == 0) {
-        console.log('här')
         target.append('<input type="button" value="Töm"></input>');
     }
 }
@@ -298,14 +220,13 @@ $('.pre-recipe').on('click', 'input', function () {
         description = "";
         deleteDescription = 0 ;
     }
-    console.log('deleted' + ulList);
 });
 
 
 //Method to get the right nutrition data and add it to the recipe.json
 $('#submitRecipe').on('click', async function () {
     if (recipeIngredients.length > 0 && todoList.length > 0 && recipeName !== "" && recipePicture!=="" && recipeTags.length>0 && description!=="") {
-        console.log('receptet ska sparas strax')
+        $('#submit-message').empty();
         let nutrition = 
             {
                 "Ener" : 0,
@@ -413,8 +334,6 @@ $('#input-search-recipe').keyup(async function () {
         alert("Inget recept hittat");
         loadRecipesOnStart();
         $('#input-search-recipe').val("");
-        // $('.colOne ul').append("Inget recept med det namnet hittades!");
-        // console.log("inget recept hittat")
     } 
     
     $('.result a').on('click', function(){        
@@ -442,8 +361,6 @@ $('#input-search-description').keyup(async function () {
         alert("Inget recept hittat");
         loadRecipesOnStart();
         $('#input-search-recipe').val("");
-        // $('.colOne ul').append("Inget recept med det namnet hittades!");
-        // console.log("inget recept hittat")
     } 
     
     $('.result a').on('click', function(){        
@@ -459,7 +376,6 @@ $('.tag-checkbox').on('change', async function () {
     emptySearchOutputField();
     $('#numberOfPortions').val(2);
     let taginput = $('.tag-checkbox').val().toLowerCase();
-    console.log(taginput);
     let recipes = await $.getJSON('/recipes.json').catch(console.err);
     saveMatchedRecipesInArray(recipes, taginput, "tag");
     if(matchedRecipes.length>0){
@@ -523,7 +439,6 @@ function showSingleRecipe(recipe){
 // saves matched recepies when searching
 function saveMatchedRecipesInArray(recipes, searchinput, type){
     for (let r of recipes) {
-        debugger
         if((type=="tag" && r.tags.includes(searchinput)) ||(type=="description" && r.description.toLowerCase().includes(searchinput)) || (type=="recipename" && r.name.toLowerCase().startsWith(searchinput))){//funkar antagligen inte
             result = r;
             recipeInList = {
@@ -541,7 +456,6 @@ function showRecipes(recipesToShow){
     let tempvariabel=0; 
     for(rec of recipesToShow){
             if(tempvariabel%3==0){
-                console.log("col 1")
                 $('.colOne').append('<a href="#"><div class="card"><img class= "card-img-top" src="'+rec.picture+'"alt="Linastest"><div class="card-body"><h5 class="card-title">'+rec.name+'</h5>'+rec.description+'</div></div></a>');
                 tempvariabel++;
             }else if(tempvariabel%3==1){
